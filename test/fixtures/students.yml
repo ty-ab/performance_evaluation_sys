@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  college: one
+  department: one
+  class_room: one
+  semester: one
+
+two:
+  college: two
+  department: two
+  class_room: two
+  semester: two
