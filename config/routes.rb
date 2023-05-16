@@ -1,78 +1,24 @@
 Rails.application.routes.draw do
-  get 'semester/index'
-  get 'semester/new'
-  get 'semester/show'
-  get 'semester/create'
-  get 'semester/edit'
-  get 'semester/update'
-  get 'semester/destroy'
-  get 'courses/index'
-  get 'courses/new'
-  get 'courses/show'
-  get 'courses/create'
-  get 'courses/edit'
-  get 'courses/update'
-  get 'courses/destroy'
-  get 'tasks/index'
-  get 'tasks/new'
-  get 'tasks/show'
-  get 'tasks/create'
-  get 'tasks/edit'
-  get 'tasks/update'
-  get 'tasks/destroy'
-  get 'admin/index'
-  get 'admin/new'
-  get 'admin/show'
-  get 'admin/create'
-  get 'admin/edit'
-  get 'admin/update'
-  get 'admin/destroy'
-  get 'evaluation_criteriums/index'
-  get 'evaluation_criteriums/new'
-  get 'evaluation_criteriums/show'
-  get 'evaluation_criteriums/create'
-  get 'evaluation_criteriums/edit'
-  get 'evaluation_criteriums/update'
-  get 'evaluation_criteriums/destroy'
-  get 'evaluation_forms/index'
-  get 'evaluation_forms/new'
-  get 'evaluation_forms/show'
-  get 'evaluation_forms/create'
-  get 'evaluation_forms/edit'
-  get 'evaluation_forms/update'
-  get 'evaluation_forms/destroy'
-  get 'evaluation_results/index'
-  get 'evaluation_results/new'
-  get 'evaluation_results/show'
-  get 'evaluation_results/create'
-  get 'evaluation_results/edit'
-  get 'evaluation_results/update'
-  get 'evaluation_results/destroy'
-  get 'evaluation_results/index'
-  get 'evaluation_results/new'
-  get 'evaluation_results/create'
-  get 'evaluation_results/edit'
-  get 'evaluation_results/update'
-  get 'evaluation_results/destroy'
-  get 'colleges/index'
-  get 'colleges/new'
-  get 'colleges/create'
-  get 'colleges/edit'
-  get 'colleges/update'
-  get 'colleges/destroy'
-  get 'departments/index'
-  get 'departments/new'
-  get 'departments/create'
-  get 'departments/edit'
-  get 'departments/update'
-  get 'departments/destroy'
-  get 'users/index'
-  get 'users/show'
-  get 'users/new'
-  get 'users/create'
-  get 'users/edit'
-  get 'users/update'
-  get 'users/destroy'
+
+  resources :semester
+
+  resources :courses
+
+  resources :tasks
+
+  resources :admin
+
+  resources :evaluation_criteriums
+
+  resources :evaluation_forms
+  
+  resources :evaluation_results
+
+  resources :colleges
+
+  resources :departments
+
+  resources :users
 
   resources :students
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_200013) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
   create_table "class_rooms", force: :cascade do |t|
     t.string "classroom_name"
     t.datetime "created_at", null: false
@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_200013) do
     t.integer "college_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
     t.index ["college_id"], name: "index_instructors_on_college_id"
   end
 
@@ -91,11 +92,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_200013) do
     t.string "password_digest"
     t.integer "college_id", null: false
     t.integer "department_id", null: false
-    t.integer "class_room_id", null: false
     t.integer "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["class_room_id"], name: "index_students_on_class_room_id"
     t.index ["college_id"], name: "index_students_on_college_id"
     t.index ["department_id"], name: "index_students_on_department_id"
     t.index ["semester_id"], name: "index_students_on_semester_id"
@@ -128,7 +127,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_200013) do
   add_foreign_key "evaluation_results", "instructors"
   add_foreign_key "evaluation_results", "semesters"
   add_foreign_key "instructors", "colleges"
-  add_foreign_key "students", "class_rooms"
   add_foreign_key "students", "colleges"
   add_foreign_key "students", "departments"
   add_foreign_key "students", "semesters"
