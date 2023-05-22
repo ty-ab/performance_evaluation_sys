@@ -1,2 +1,18 @@
 <h1>Semester#index</h1>
 <p>Find me in app/views/semester/index.html.erb</p>
+<ul>
+  <% @semesters.each do |semester| %>
+    <li><%= semester.start %>&nbsp;&nbsp;&nbsp;
+    <%= semester.end %>&nbsp;&nbsp;&nbsp;
+    <%= semester.sem %>&nbsp;&nbsp;&nbsp;
+    <%= semester.status %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit semester", edit_semester_path(semester) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', semester_path(semester), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+</li>
+    
+  <% end %>
+</ul>
+<%= link_to "New semester", new_semester_path %>

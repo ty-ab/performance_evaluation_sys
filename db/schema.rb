@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
-  create_table "class_rooms", force: :cascade do |t|
-    t.string "classroom_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_185902) do
   create_table "colleges", force: :cascade do |t|
     t.string "college_name"
     t.datetime "created_at", null: false
@@ -66,6 +60,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
     t.index ["semester_id"], name: "index_evaluation_results_on_semester_id"
   end
 
+  create_table "ho_d_departments", force: :cascade do |t|
+    t.integer "department_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "instructor_id", null: false
+    t.index ["department_id"], name: "index_ho_d_departments_on_department_id"
+    t.index ["instructor_id"], name: "index_ho_d_departments_on_instructor_id"
+  end
+
   create_table "instructors", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -73,7 +76,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
     t.integer "college_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
     t.index ["college_id"], name: "index_instructors_on_college_id"
   end
 
@@ -98,6 +100,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
     t.index ["college_id"], name: "index_students_on_college_id"
     t.index ["department_id"], name: "index_students_on_department_id"
     t.index ["semester_id"], name: "index_students_on_semester_id"
+  end
+
+  create_table "students_tasks", id: false, force: :cascade do |t|
+    t.integer "task_id", null: false
+    t.integer "student_id", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -126,6 +133,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_065102) do
   add_foreign_key "departments", "colleges"
   add_foreign_key "evaluation_results", "instructors"
   add_foreign_key "evaluation_results", "semesters"
+  add_foreign_key "ho_d_departments", "departments"
+  add_foreign_key "ho_d_departments", "instructors"
   add_foreign_key "instructors", "colleges"
   add_foreign_key "students", "colleges"
   add_foreign_key "students", "departments"

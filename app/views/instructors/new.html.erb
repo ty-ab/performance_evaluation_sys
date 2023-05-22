@@ -1,2 +1,17 @@
 <h1>Instructors#new</h1>
 <p>Find me in app/views/instructors/new.html.erb</p>
+<%= form_with(model: @instructor, url: instructors_path) do |form| %>
+  <%= form.label :name %><br/>
+  <%= form.text_field :name %><br/>
+
+  <%= form.label :email %><br/>
+  <%= form.text_field :email %><br/>
+
+  <%= form.label :password_digest %><br/>
+  <%= form.text_field :password_digest %><br/>
+
+  <%= form.label :college_id %><br/>
+  <%= form.select :college_id, options_for_select(colleges_for_select),include_blank: true %><br/>
+
+  <%= form.submit %>
+<% end %>

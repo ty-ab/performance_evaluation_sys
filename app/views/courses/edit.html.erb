@@ -1,2 +1,10 @@
 <h1>Courses#edit</h1>
 <p>Find me in app/views/courses/edit.html.erb</p>
+<h1>Edit course</h1>
+<%= form_with(model: @course, url: course_path(@course), method: :put) do |form| %>
+  <%= form.label :course_name %><br/>
+  <%= form.text_field :course_name, value: @course.course_name %><br/>
+
+  <br/><br/>
+  <%= form.submit %>
+<% end %>

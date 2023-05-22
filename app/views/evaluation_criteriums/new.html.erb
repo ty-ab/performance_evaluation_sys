@@ -1,2 +1,7 @@
 <h1>EvaluationCriteriums#new</h1>
 <p>Find me in app/views/evaluation_criteriums/new.html.erb</p>
+<%= form_with(model: @evaluation_criterium, url: evaluation_criteriums_path) do |form| %>
+  <%= form.label :criteria %><br/>
+  <%= form.text_field :criteria %><br/>
+  <%= form.submit %>
+<% end %>

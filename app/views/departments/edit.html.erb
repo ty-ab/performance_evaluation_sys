@@ -1,2 +1,12 @@
 <h1>Departments#edit</h1>
 <p>Find me in app/views/departments/edit.html.erb</p>
+<h1>Edit department</h1>
+<%= form_with(model: @department, url: department_path(@department), method: :put) do |form| %>
+  <%= form.label :dep_name %><br/>
+  <%= form.text_field :dep_name, value: @department.dep_name %><br/>
+  <%= form.label :college_id %><br/>
+  <%= form.select :college_id, options_for_select(colleges_for_select,@department.college_id) %><br/>
+
+  <br/><br/>
+  <%= form.submit %>
+<% end %>

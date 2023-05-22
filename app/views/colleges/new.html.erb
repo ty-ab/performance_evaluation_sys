@@ -1,2 +1,7 @@
 <h1>Colleges#new</h1>
 <p>Find me in app/views/colleges/new.html.erb</p>
+<%= form_with(model: @college, url: colleges_path) do |form| %>
+  <%= form.label :college_name %>
+  <%= form.text_field :college_name %>
+  <%= form.submit %>
+<% end %>

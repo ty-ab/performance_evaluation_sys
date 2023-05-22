@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  resources :head_of_departments
 
   resources :semester
 
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   resources :departments
 
   resources :users
+
+  resources :instructors
 
   resources :students
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

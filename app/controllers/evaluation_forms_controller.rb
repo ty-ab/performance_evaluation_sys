@@ -1,8 +1,10 @@
 class EvaluationFormsController < ApplicationController
   def index
+    @evaluation_forms = EvaluationForm.all
   end
 
   def new
+    @evaluation_form = EvaluationForm.new
   end
 
   def show

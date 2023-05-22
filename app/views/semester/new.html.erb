@@ -1,2 +1,13 @@
 <h1>Semester#new</h1>
 <p>Find me in app/views/semester/new.html.erb</p>
+<%= form_with(model: @semester, url: semester_index_path) do |form| %>
+  <%= form.label :start %>
+  <%= form.date_field :start %>
+  <%= form.label :end %>
+  <%= form.date_field :end %>
+  <%= form.label :sem %><br/>
+  <%= form.text_field :sem %><br/>
+  <%= form.label :status %><br/>
+  <%= form.check_box  :status, checked: true %>
+  <%= form.submit %>
+<% end %>

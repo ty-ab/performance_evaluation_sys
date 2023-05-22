@@ -1,0 +1,16 @@
+<h1>HeadOfDepartments#index</h1>
+<p>Find me in app/views/head_of_departments/index.html.erb</p>
+<ul>
+  <% @ho_d_departments.each do |ho_d_department| %>
+    <li><%= link_to ho_d_department.department.dep_name, head_of_department_path(ho_d_department) %>&nbsp;&nbsp;&nbsp;
+    <%= ho_d_department.instructor.name %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit hod", edit_head_of_department_path(ho_d_department) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', head_of_department_path(ho_d_department), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+    </li>
+    
+  <% end %>
+  </ul>
+<%= link_to "New hod", new_head_of_department_path %>
