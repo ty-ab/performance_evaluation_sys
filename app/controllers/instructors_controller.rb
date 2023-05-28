@@ -1,4 +1,5 @@
 class InstructorsController < ApplicationController
+  before_action :require_login
   def index
     @instructors = Instructor.all
   end
@@ -46,5 +47,11 @@ class InstructorsController < ApplicationController
 
     def instructor_params1
       params.require(:instructor).permit(:name,:email,:college_id)
+    end
+
+    def require_login
+      unless logged_in?
+        redirect_to login_path
+      end
     end
 end

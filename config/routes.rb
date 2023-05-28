@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get "/evaluation", to: "evaluations#index"
   get "/evaluation/evaluate/:id", to: "evaluations#evaluate"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/destroy", to: "sessions#destroy"
+
+  root to: "static_pages#home"
+  get "/help", to: "static_pages#help"
+
   resources :head_of_departments
 
   resources :semester

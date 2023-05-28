@@ -5,8 +5,8 @@
   <%= form.text_field :name %>
   <%= form.label :email %>
   <%= form.text_field :email %>
-  <%= form.label :password_digest,"password" %>
-  <%= form.text_field :password_digest %>
+  <%= form.label :password %>
+  <%= form.password_field :password %>
   <%= form.select :type, [["none",""], ["admin","Admin"]] %>
 
   <%= form.submit %>

@@ -4,4 +4,5 @@ class Instructor < ApplicationRecord
   has_one :ho_d_department
   has_one :department, through: :ho_d_department
   self.table_name = 'instructors'
+  has_secure_password
 end

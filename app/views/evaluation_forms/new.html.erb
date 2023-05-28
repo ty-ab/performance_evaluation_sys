@@ -17,7 +17,7 @@
 
 <%= form_with(model: @evaluation_form, url: evaluation_forms_path,id: 'data-form') do |form| %>
   <%= form.hidden_field :form_fields, value: nil,id: "hidden-field" %>
-  <%= form.select :evaluator, [["Evaluator", nil],["Student","Student"], ["Instructor","Instructor"]] %>
+  <%= form.select :evaluator, [["Evaluator", nil],["Student","student"], ["Instructor","instructor"]] %>
   <%= form.submit :submit_form_fields,value: "Save Form Fields" ,id: "submit-form-fields" %>
 <% end %>
 
