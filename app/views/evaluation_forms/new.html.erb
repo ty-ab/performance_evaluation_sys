@@ -1,2 +1,94 @@
 <h1>EvaluationForms#new</h1>
 <p>Find me in app/views/evaluation_forms/new.html.erb</p>
+
+<%# <%= form_tag({}) do |form| %>
+<div id="dynamic-fields-container"></div>
+
+<select name="evaluation_criterium_id" id="evaluation-criterium-select">
+  <% @evaluation_criteriums.each do |criterium| %>
+    <option value="<%= criterium.id %>" data-name="<%= criterium.criteria %>" data-description="<%= criterium.description %>">
+      <%= criterium.criteria %>
+    </option>
+  <% end %>
+</select>
+
+<button id="add-radio-buttons">Add Radio Buttons</button>
+<%# <button id=>Save form fields</button> %>
+
+<%= form_with(model: @evaluation_form, url: evaluation_forms_path,id: 'data-form') do |form| %>
+  <%= form.hidden_field :form_fields, value: nil,id: "hidden-field" %>
+  <%= form.select :evaluator, [["Evaluator", nil],["Student","Student"], ["Instructor","Instructor"]] %>
+  <%= form.submit :submit_form_fields,value: "Save Form Fields" ,id: "submit-form-fields" %>
+<% end %>
+
+
+<script>
+  // Retrieve the select element and add an event listener to capture the selected option
+  var selectElement = document.getElementById('evaluation-criterium-select');
+  var submitFormFileds = document.getElementById('submit-form-fields');
+  var form = document.getElementById('data-form');
+
+  var selectedName = "blank";
+  var selectedDescription = "blank";
+
+  selectElement.addEventListener('change', function() {
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+     selectedName = selectedOption.getAttribute('data-name');
+     selectedDescription = selectedOption.getAttribute('data-description');
+    
+    // Use the captured data as needed
+    console.log('Selected Name:', selectedName);
+    console.log('Selected Description:', selectedDescription);
+  });
+
+  var radioCount = 1;
+  var addButton = document.getElementById('add-radio-buttons');
+  var container = document.getElementById('dynamic-fields-container');
+  
+
+  addButton.addEventListener('click', function() {
+
+      let fieldHtml = `
+        <p>${selectedDescription} :</p>
+        <input type="radio" name="${selectedName}" value="1" id="${selectedName}_1">
+        <label for="${selectedName}_1">1</label>
+        
+        <input type="radio" name="${selectedName}" value="2" id="${selectedName}_2">
+        <label for="${selectedName}_2">2</label>
+
+        <input type="radio" name="${selectedName}" value="3" id="${selectedName}_3">
+        <label for="${selectedName}_3">3</label>
+
+        <input type="radio" name="${selectedName}" value="4" id="${selectedName}_4">
+        <label for="${selectedName}_4">4</label>
+
+        <input type="radio" name="${selectedName}" value="5" id="${selectedName}_5">
+        <label for="${selectedName}_5">5</label>
+
+        <input type="radio" name="${selectedName}" value="6" id="${selectedName}_6">
+        <label for="${selectedName}_6">6</label>
+      `;
+
+      container.insertAdjacentHTML('beforeend', fieldHtml);
+      
+      
+
+      var formsHtml = container.innerHTML;
+      console.log(formsHtml);
+
+      
+    });
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+
+      submitFormFileds.addEventListener('click',function(event){
+        event.preventDefault();
+
+        var hiddenField = document.getElementById('hidden-field');
+        hiddenField.value = container.innerHTML;
+        form.submit();
+      });
+
+    });
+</script>

@@ -2,7 +2,8 @@
 <p>Find me in app/views/colleges/index.html.erb</p>
 <ul>
   <% @colleges.each do |college| %>
-    <li><%= link_to college.college_name, college_path(college) %>&nbsp;&nbsp;&nbsp;
+    <li>
+      <%= link_to college.college_name, college_path(college) %>&nbsp;&nbsp;&nbsp;
     <%= link_to "Edit college", edit_college_path(college) %>&nbsp;&nbsp;&nbsp;
     <%= link_to 'Delete', college_path(college), method: :delete, data: {
                     turbo_method: :delete,

@@ -40,6 +40,6 @@ class EvaluationCriteriumsController < ApplicationController
 
   private
   def evaluation_criterium_params
-    params.require(:evaluation_criterium).permit(:criteria)
+    params.require(:evaluation_criterium).permit(:criteria,:description)
   end
 end

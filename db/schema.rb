@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_20_185902) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
   create_table "colleges", force: :cascade do |t|
     t.string "college_name"
     t.datetime "created_at", null: false
@@ -40,11 +40,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_185902) do
     t.string "criteria"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
   end
 
   create_table "evaluation_forms", force: :cascade do |t|
     t.string "evaluator"
-    t.text "form"
+    t.text "form_fields"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_185902) do
     t.float "total_result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "evaluators"
     t.index ["instructor_id"], name: "index_evaluation_results_on_instructor_id"
     t.index ["semester_id"], name: "index_evaluation_results_on_semester_id"
   end

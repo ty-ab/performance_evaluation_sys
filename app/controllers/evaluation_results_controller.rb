@@ -9,6 +9,7 @@ class EvaluationResultsController < ApplicationController
   end
 
   def create
+    evaluation_result_params()
   end
 
   def edit
@@ -19,4 +20,11 @@ class EvaluationResultsController < ApplicationController
 
   def destroy
   end
+  
+
+  private
+    def evaluation_result_params
+      params.require(:evaluation_result).permit!
+      Rails.logger.info(params.inspect)
+    end
 end

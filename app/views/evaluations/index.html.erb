@@ -1,0 +1,13 @@
+list of to be evaluated
+
+  <% @tasks.each do |task| %>
+  <li>
+    <%= link_to task.instructor.name, evaluation_evaluate_path(task.id) %>&nbsp;&nbsp;&nbsp;
+    <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
+    <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
+    <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
+</li>
+    
+  <% end %>
+  </ul>
+<%= link_to "New task", new_task_path %>

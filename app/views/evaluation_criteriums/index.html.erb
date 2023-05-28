@@ -2,7 +2,8 @@
 <p>Find me in app/views/evaluation_criteriums/index.html.erb</p>
 <ul>
   <% @evaluation_criteriums.each do |evaluation_criterium| %>
-    <li><%= link_to evaluation_criterium.criteria, evaluation_criterium_path(evaluation_criterium) %>&nbsp;&nbsp;&nbsp;
+    <li><%= evaluation_criterium.criteria %>&nbsp;&nbsp;&nbsp;
+    <%= evaluation_criterium.description %>&nbsp;&nbsp;&nbsp;
     <%= link_to "Edit evaluation_criterium", edit_evaluation_criterium_path(evaluation_criterium) %>&nbsp;&nbsp;&nbsp;
     <%= link_to 'Delete', evaluation_criterium_path(evaluation_criterium), method: :delete, data: {
                     turbo_method: :delete,

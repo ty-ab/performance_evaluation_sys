@@ -1,0 +1,9 @@
+evaluate
+<%= form_with(model: @evaluation_result, url: evaluation_results_path) do |form| %>
+  <div>
+    <%= @evaluation_form.form_fields.html_safe  %>
+  </div>
+
+  <%= form.hidden_field :instructor_id, value: @task.instructor_id %>
+  <%= form.submit %>
+<% end %>
