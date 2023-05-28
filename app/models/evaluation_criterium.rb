@@ -1,0 +1,2 @@
+class EvaluationCriterium < ApplicationRecord
+end

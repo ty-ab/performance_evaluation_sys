@@ -1,0 +1,15 @@
+<h1>Departments#index</h1>
+<p>Find me in app/views/departments/index.html.erb</p>
+<ul>
+  <% @departments.each do |department| %>
+    <li><%= link_to department.dep_name, department_path(department) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit department", edit_department_path(department) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', department_path(department), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+</li>
+    
+  <% end %>
+</ul>
+<%= link_to "New department", new_department_path %>

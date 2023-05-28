@@ -1,0 +1,17 @@
+<h1>Semester#edit</h1>
+<p>Find me in app/views/semester/edit.html.erb</p>
+<h1>Edit </h1>
+<%= form_with(model: @semester, url: semester_path(@semester), method: :put) do |form| %>
+  <%= form.label :start %>
+  <%= form.date_field :start, value: @semester.start %>
+  <%= form.label :end %>
+  <%= form.date_field :end,value: @semester.end %>
+
+  <%= form.label :sem %><br/>
+  <%= form.text_field :sem, value: @semester.sem %><br/>
+
+  <%= form.label :status %><br/>
+  <%= form.check_box  :status, checked: @semester.status %>
+
+  <%= form.submit %>
+<% end %>

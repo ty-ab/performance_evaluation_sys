@@ -1,0 +1,16 @@
+<h1>EvaluationCriteriums#index</h1>
+<p>Find me in app/views/evaluation_criteriums/index.html.erb</p>
+<ul>
+  <% @evaluation_criteriums.each do |evaluation_criterium| %>
+    <li><%= evaluation_criterium.criteria %>&nbsp;&nbsp;&nbsp;
+    <%= evaluation_criterium.description %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit evaluation_criterium", edit_evaluation_criterium_path(evaluation_criterium) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', evaluation_criterium_path(evaluation_criterium), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+</li>
+    
+  <% end %>
+</ul>
+<%= link_to "New evaluation_criterium", new_evaluation_criterium_path %>

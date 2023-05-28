@@ -1,0 +1,15 @@
+<h1>HeadOfDepartments#new</h1>
+<p>Find me in app/views/head_of_departments/new.html.erb</p>
+<%= form_with(model: @ho_d_department, url: head_of_departments_path) do |form| %>
+
+  <div class="field">
+    <%= form.label :instructor_id %>
+    <%= form.collection_select :instructor_id, @instructors, :id, :name,{ include_blank: 'None' } %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :department_id %>
+    <%= form.collection_select :department_id, @departments, :id, :dep_name,{ include_blank: 'None' } %>
+  </div>
+  <%= form.submit %>
+<% end %>

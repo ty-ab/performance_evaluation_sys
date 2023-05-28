@@ -1,0 +1,16 @@
+<h1>Courses#index</h1>
+<p>Find me in app/views/courses/index.html.erb</p>
+
+<ul>
+  <% @courses.each do |course| %>
+    <li><%= link_to course.course_name, course_path(course) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit course", edit_course_path(course) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', course_path(course), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+</li>
+    
+  <% end %>
+</ul>
+<%= link_to "New course", new_course_path %>

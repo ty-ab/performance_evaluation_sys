@@ -1,0 +1,22 @@
+<h1>Students#edit</h1>
+<p>Find me in app/views/students/edit.html.erb</p>
+<%= form_with(model: @student, url: student_path(@student), method: :put) do |form| %>
+
+  <%= form.label :name %><br/>
+  <%= form.text_field :name, value: @student.name %><br/>
+
+  <%= form.label :email %><br/>
+  <%= form.text_field :email, value: @student.email %><br/>
+
+  <%= form.label :college_id %><br/>
+  <%= form.select :college_id, options_for_select(colleges_for_select, @student.college_id),include_blank: true %><br/>
+
+  <%= form.label :department_id %><br/>
+  <%= form.select :department_id, options_for_select(departments_for_select, @student.department_id),include_blank: true %><br/>
+
+  <%= form.label :semester_id %><br/>
+  <%= form.select :semester_id, options_for_select(semesters_for_select, @student.semester_id),include_blank: true %><br/>
+
+  <br/><br/>
+  <%= form.submit %>
+<% end %>

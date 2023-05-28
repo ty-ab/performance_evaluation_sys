@@ -1,0 +1,12 @@
+<h1>Users#edit</h1>
+<p>Find me in app/views/users/edit.html.erb</p>
+<%= form_with(model: @user, url: user_path(@user), method: :patch) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name, value: @user.name %>
+  <%= form.label :email %>
+  <%= form.text_field :email, value: @user.email %>
+
+  <%= form.select :type, [["none",""], ["admin","Admin"]], value: @user.type %>
+
+  <%= form.submit %>
+<% end %>
