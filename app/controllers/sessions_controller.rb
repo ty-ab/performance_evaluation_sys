@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     end
   
     def create
-        # debugger
+        #debugger
         email = params[:email]
         password = params[:password]
 

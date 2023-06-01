@@ -23,11 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "courses_students", id: false, force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "student_id", null: false
-  end
-
   create_table "departments", force: :cascade do |t|
     t.string "dep_name"
     t.integer "college_id", null: false

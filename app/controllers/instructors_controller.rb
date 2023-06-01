@@ -1,5 +1,5 @@
 class InstructorsController < ApplicationController
-  before_action :require_login
+  #before_action :require_login
   def index
     @instructors = Instructor.all
   end
@@ -42,7 +42,7 @@ class InstructorsController < ApplicationController
 
   private
     def instructor_params
-      params.require(:instructor).permit(:name,:email,:password_digest,:college_id)
+      params.require(:instructor).permit(:name,:email,:password,:college_id)
     end
 
     def instructor_params1

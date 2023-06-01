@@ -5,7 +5,7 @@ list of to be evaluated
   <ul>
     <% current_user.tasks.each do |task| %>
       <li>
-        <%= link_to task.instructor.name, evaluation_evaluate_path(task.id) %>&nbsp;&nbsp;&nbsp;
+        <%= link_to task.instructor.name, evaluation_path(task.id) %>&nbsp;&nbsp;&nbsp;
         <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
         <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
         <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;

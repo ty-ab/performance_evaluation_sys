@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get "/evaluation", to: "evaluations#index"
   get "/evaluation/evaluate/:id", to: "evaluations#evaluate"
+  post "/evaluation/evaluate", to: "evaluations#create"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

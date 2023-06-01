@@ -1,9 +1,46 @@
 evaluate
-<%= form_with(model: @evaluation_result, url: evaluation_results_path) do |form| %>
+<%= form_with(model: @evaluation_result, url: evaluation_evaluate_path,id: "form") do |form| %>
   <div>
     <%= @evaluation_form.form_fields.html_safe  %>
   </div>
 
+  <%= form.hidden_field :detailed_result, value: nil,id: "detailed-result" %>
   <%= form.hidden_field :instructor_id, value: @task.instructor_id %>
-  <%= form.submit %>
+  <%= form.hidden_field :semester_id, value: @task.semester_id %>
+  <%= form.hidden_field :evaluators, value: user_type %>
+
+  <%= form.submit :evaluate,value: "evaluate",id: "evaluate"%>
 <% end %>
+
+<script>
+
+
+function serializeRadioValues() {
+    var radioValues = {};
+    var radioInputs = document.querySelectorAll('input[type="radio"]');
+
+    radioInputs.forEach(function(input) {
+      if (input.checked) {
+        var questionName = input.name;
+        var value = input.value;
+        radioValues[questionName] = value;
+      }
+    });
+
+    return JSON.stringify(radioValues);
+  }
+
+  // Update the hidden field with the serialized hash value
+  function updateDetailedResultField() {
+    var detailedResultField = document.getElementById('detailed-result');
+    detailedResultField.value = serializeRadioValues();
+  }
+
+  // Update the hidden field before submitting the form
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    form.addEventListener('submit', updateDetailedResultField);
+  });
+
+
+</script>

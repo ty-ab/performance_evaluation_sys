@@ -35,9 +35,11 @@
     var selectedOption = selectElement.options[selectElement.selectedIndex];
      selectedName = selectedOption.getAttribute('data-name');
      selectedDescription = selectedOption.getAttribute('data-description');
+     selectedId = selectedOption.getAttribute('value');
     
     // Use the captured data as needed
     console.log('Selected Name:', selectedName);
+    console.log('Selected Id:',selectedId)
     console.log('Selected Description:', selectedDescription);
   });
 
@@ -50,23 +52,23 @@
 
       let fieldHtml = `
         <p>${selectedDescription} :</p>
-        <input type="radio" name="${selectedName}" value="1" id="${selectedName}_1">
-        <label for="${selectedName}_1">1</label>
+        <input type="radio" name="q${selectedId}" value="1" id="q${selectedId}_1">
+        <label for="q${selectedId}_1">1</label>
         
-        <input type="radio" name="${selectedName}" value="2" id="${selectedName}_2">
-        <label for="${selectedName}_2">2</label>
+        <input type="radio" name="q${selectedId}" value="2" id="q${selectedId}_2">
+        <label for="q${selectedId}_2">2</label>
 
-        <input type="radio" name="${selectedName}" value="3" id="${selectedName}_3">
-        <label for="${selectedName}_3">3</label>
+        <input type="radio" name="q${selectedId}" value="3" id="q${selectedId}_3">
+        <label for="q${selectedId}_3">3</label>
 
-        <input type="radio" name="${selectedName}" value="4" id="${selectedName}_4">
-        <label for="${selectedName}_4">4</label>
+        <input type="radio" name="q${selectedId}" value="4" id="q${selectedId}_4">
+        <label for="q${selectedId}_4">4</label>
 
-        <input type="radio" name="${selectedName}" value="5" id="${selectedName}_5">
-        <label for="${selectedName}_5">5</label>
+        <input type="radio" name="q${selectedId}" value="5" id="q${selectedId}_5">
+        <label for="q${selectedId}_5">5</label>
 
-        <input type="radio" name="${selectedName}" value="6" id="${selectedName}_6">
-        <label for="${selectedName}_6">6</label>
+        <input type="radio" name="q${selectedId}" value="6" id="q${selectedId}_6">
+        <label for="q${selectedId}_6">6</label>
       `;
 
       container.insertAdjacentHTML('beforeend', fieldHtml);
