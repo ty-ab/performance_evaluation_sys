@@ -17,8 +17,12 @@
 
   <%= form.label :active %><br/>
   <%= form.check_box  :active, checked: true %>
-
+<div class="field">
+    <%= form.label :start_eval,"Start evaluation" %>
+    <%= form.check_box :start_eval %>
+  </div>
   <div class="field">
+
   <%= form.label :student_ids, 'Students' %>
   <%= form.collection_check_boxes :student_ids, Student.all, :id, :name do |b| %>
     <div class="checkbox">
