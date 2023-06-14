@@ -2,3 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
+//= require rails-ujs
+// import 'jquery';
+
+//= require jquery

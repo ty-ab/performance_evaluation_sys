@@ -1,0 +1,32 @@
+<h1>Colleges#index</h1>
+<div class="container-fluid shadow rounded mt-3 pb-2 ">
+  <%= button_tag(type: "button", class: "btn btn-primary my-2 float-end") do %>
+  <i class="bi bi-plus-square"></i>
+  <span>Add College</span>
+  <% end %>
+  <table class="table table-striped table-bordered table-auto ">
+    <thead>
+      <tr class="table-primary">
+        <th></th>
+        <th>Course Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @colleges.each_with_index do |college,index| %>
+      <tr>
+        <td class="text-center"><%= index + 1 %></td>
+        <td class="text-center"><%= college.college_name %></td>
+        <td class="text-center">
+          <%= button_tag(type: "button", class: "btn btn-warning mx-5") do %>
+          <i class="bi bi-pencil-square"></i><span>Edit</span>
+          <% end %> 
+          <%= button_tag(type: "button", class: "btn btn-danger mx-5") do %>
+          <i class="bi bi-trash"></i><span>Delete</span>
+          <% end %> 
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

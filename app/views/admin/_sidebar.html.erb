@@ -1,75 +1,51 @@
-<div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
+<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+        <li>
+            <%= link_to admin_index_path(view: ''), class: 'nav-link px-0 align-middle', id: "dashboard-link", remote: true  do %>
+            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            <% end %>
+        </li>
+        <li>
+            <a href="#submenu1m" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-people"></i>
+                <span class="ms-1 d-none d-sm-inline">Manage Users</span> </a>
+                <ul class="collapse flex-column ms-1" id="submenu1m" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <%= link_to admin_index_path(view: 'manage_users'), class: 'nav-link px-0 align-middle', id: "user-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Users</span>
+                        <% end %>
                     </li>
                     <li>
-                        <a href="#submenu1m" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i>
-                             <span class="ms-1 d-none d-sm-inline">Manage Users</span> </a>
-                        <ul class="collapse flex-column ms-1" id="submenu1m" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Users</span>  </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Instructors</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Student</span></a>
-                            </li>
-                        </ul>
+                        <%= link_to admin_index_path(view: 'manage_instructors'), class: 'nav-link px-0 align-middle', id: "instructor-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Instructors</span>
+                        <% end %>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-kanban"></i> <span class="ms-1 d-none d-sm-inline">Manage College</span></a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Manage Department</span></a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi bi-card-text"></i> <span class="ms-1 d-none d-sm-inline">Manage Criterias</span></a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi bi-ui-checks"></i> <span class="ms-1 d-none d-sm-inline">Manage Form</span></a>
+                        <%= link_to admin_index_path(view: 'manage_students'), class: 'nav-link px-0 align-middle', id: "student-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Students</span>
+                        <% end %>
                     </li>
                 </ul>
-                <hr>
-                <div class="dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">loser</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col py-3">
-            Content area...
-            <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-        </div>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_colleges'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi-kanban"></i> <span class="ms-1 d-none d-sm-inline">Manage Colleges</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_departments'), class: 'nav-link px-0 align-middle', id: "department-link", remote: true  do %>
+                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Manage Departments</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_criterias'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi bi-card-text"></i> <span class="ms-1 d-none d-sm-inline">Manage Criterias</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_froms'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi bi-ui-checks"></i> <span class="ms-1 d-none d-sm-inline">Manage Forms</span>
+                <% end %>
+            </li>
+        </ul>
     </div>
-</div>

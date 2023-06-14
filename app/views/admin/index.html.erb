@@ -1,1 +1,11 @@
-<%= render partial: 'sidebar' %>
+<!-- <%= render partial: 'sidebar' %> -->
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <%= render partial: 'sidebar' %>
+        </div>
+        <div class="content col py-3" id="dynamic-content">
+            <%= render partial: @partial %>
+        </div>
+    </div>
+</div>
