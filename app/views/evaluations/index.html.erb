@@ -1,13 +1,31 @@
 list of to be evaluated
 
-  <% @tasks.each do |task| %>
-  <li>
-    <%= link_to task.instructor.name, evaluation_evaluate_path(task.id) %>&nbsp;&nbsp;&nbsp;
-    <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
-    <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
-    <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
-</li>
-    
-  <% end %>
+
+<% if user_type == "student" %>
+  <ul>
+    <% current_user.tasks.each do |task| %>
+      <% if task.start_eval %>
+      <li>
+        <%= link_to task.instructor.name, evaluation_path(task.id) %>&nbsp;&nbsp;&nbsp;
+        <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
+        <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
+        <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
+      </li>
+      <% end %>
+    <% end %>
   </ul>
-<%= link_to "New task", new_task_path %>
+<% elsif user_type == "instructor" %>
+  <!-- Code for the instructor section goes here -->
+  <ul>
+    <% current_user.tasks.each do |task| %>
+      <% if task.start_eval %>
+      <li>
+        <%= link_to task.instructor.name, evaluation_path(task.id) %>&nbsp;&nbsp;&nbsp;
+        <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
+        <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
+        <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
+      </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

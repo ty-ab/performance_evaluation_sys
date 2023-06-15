@@ -42,6 +42,6 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:course_id,:department_id,:instructor_id,:semester_id,:active, student_ids: [])
+      params.require(:task).permit(:course_id,:department_id,:instructor_id,:semester_id,:active,:start_eval, student_ids: [])
     end
 end

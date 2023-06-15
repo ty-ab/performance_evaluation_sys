@@ -1,30 +1,16 @@
 class EvaluationResultsController < ApplicationController
   def index
+    @evaluation_results = EvaluationResult.all
   end
 
   def new
+    @task = Task.find(params[:id])
+    @evaluation_form = EvaluationForm.find_by(evaluator: session[:user_type])
+    @evaluation_result = EvaluationResult.new
   end
 
   def show
+    @evaluation_form = EvaluationForm.find(params[:id])
   end
 
-  def create
-    evaluation_result_params()
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
-  
-
-  private
-    def evaluation_result_params
-      params.require(:evaluation_result).permit!
-      Rails.logger.info(params.inspect)
-    end
 end

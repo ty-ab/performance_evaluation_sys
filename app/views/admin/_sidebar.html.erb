@@ -1,0 +1,51 @@
+<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+        <li>
+            <%= link_to admin_index_path(view: ''), class: 'nav-link px-0 align-middle', id: "dashboard-link", remote: true  do %>
+            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            <% end %>
+        </li>
+        <li>
+            <a href="#submenu1m" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-people"></i>
+                <span class="ms-1 d-none d-sm-inline">Manage Users</span> </a>
+                <ul class="collapse flex-column ms-1" id="submenu1m" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <%= link_to admin_index_path(view: 'manage_users'), class: 'nav-link px-0 align-middle', id: "user-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Users</span>
+                        <% end %>
+                    </li>
+                    <li>
+                        <%= link_to admin_index_path(view: 'manage_instructors'), class: 'nav-link px-0 align-middle', id: "instructor-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Instructors</span>
+                        <% end %>
+                    </li>
+                    <li>
+                        <%= link_to admin_index_path(view: 'manage_students'), class: 'nav-link px-0 align-middle', id: "student-link", remote: true  do %>
+                        <span class="ms-1 d-none d-sm-inline">Manage Students</span>
+                        <% end %>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_colleges'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi-kanban"></i> <span class="ms-1 d-none d-sm-inline">Manage Colleges</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_departments'), class: 'nav-link px-0 align-middle', id: "department-link", remote: true  do %>
+                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Manage Departments</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_criterias'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi bi-card-text"></i> <span class="ms-1 d-none d-sm-inline">Manage Criterias</span>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to admin_index_path(view: 'manage_froms'), class: 'nav-link px-0 align-middle', id: "college-link", remote: true  do %>
+                <i class="fs-4 bi bi-ui-checks"></i> <span class="ms-1 d-none d-sm-inline">Manage Forms</span>
+                <% end %>
+            </li>
+        </ul>
+    </div>

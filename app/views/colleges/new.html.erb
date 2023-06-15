@@ -1,7 +1,7 @@
-<h1>Colleges#new</h1>
-<p>Find me in app/views/colleges/new.html.erb</p>
-<%= form_with(model: @college, url: colleges_path) do |form| %>
-  <%= form.label :college_name %>
-  <%= form.text_field :college_name %>
-  <%= form.submit %>
-<% end %>
+<div class="form-group">
+  <%= form_with(model: @college, url: colleges_path, remote: true) do |form| %>
+  <%= form.label :college_name, class: "form-label" %>
+  <%= form.text_field :college_name, class: "form-control" %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+</div>

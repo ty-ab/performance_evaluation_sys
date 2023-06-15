@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_04_163009) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "colleges", force: :cascade do |t|
     t.string "college_name"
     t.datetime "created_at", null: false
@@ -23,14 +26,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "courses_students", id: false, force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "student_id", null: false
-  end
-
   create_table "departments", force: :cascade do |t|
     t.string "dep_name"
-    t.integer "college_id", null: false
+    t.bigint "college_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["college_id"], name: "index_departments_on_college_id"
@@ -51,9 +49,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
   end
 
   create_table "evaluation_results", force: :cascade do |t|
-    t.integer "instructor_id", null: false
-    t.integer "semester_id", null: false
-    t.text "detailed_result"
+    t.bigint "instructor_id", null: false
+    t.bigint "semester_id", null: false
+    t.jsonb "detailed_result"
     t.float "total_result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
   end
 
   create_table "ho_d_departments", force: :cascade do |t|
-    t.integer "department_id", null: false
+    t.bigint "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "instructor_id", null: false
+    t.bigint "instructor_id", null: false
     t.index ["department_id"], name: "index_ho_d_departments_on_department_id"
     t.index ["instructor_id"], name: "index_ho_d_departments_on_instructor_id"
   end
@@ -75,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "college_id", null: false
+    t.bigint "college_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["college_id"], name: "index_instructors_on_college_id"
@@ -94,9 +92,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "college_id", null: false
-    t.integer "department_id", null: false
-    t.integer "semester_id", null: false
+    t.bigint "college_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["college_id"], name: "index_students_on_college_id"
@@ -105,18 +103,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_102346) do
   end
 
   create_table "students_tasks", id: false, force: :cascade do |t|
-    t.integer "task_id", null: false
-    t.integer "student_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "student_id", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "department_id", null: false
-    t.integer "instructor_id", null: false
-    t.integer "semester_id", null: false
+    t.bigint "course_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "instructor_id", null: false
+    t.bigint "semester_id", null: false
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "start_eval"
     t.index ["course_id"], name: "index_tasks_on_course_id"
     t.index ["department_id"], name: "index_tasks_on_department_id"
     t.index ["instructor_id"], name: "index_tasks_on_instructor_id"

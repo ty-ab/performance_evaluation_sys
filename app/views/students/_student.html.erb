@@ -1,0 +1,16 @@
+<h1>Students#index</h1>
+  <% @students.each do |student| %>
+    <li><%= link_to student.name, student_path(student) %>&nbsp;&nbsp;&nbsp;
+    <%= student.department.dep_name %>&nbsp;&nbsp;&nbsp;
+    <%= student.college.college_name %>&nbsp;&nbsp;&nbsp;
+    <%= student.semester.sem %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Edit student", edit_student_path(student) %>&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete', student_path(student), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> 
+    </li>
+    
+  <% end %>
+  </ul>
+<%= link_to "New student", new_student_path %>

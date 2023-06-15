@@ -1,5 +1,5 @@
 module EvaluationsHelper
-    def evaluation_evaluate_path(id)
+    def evaluation_path(id)
         "/evaluation/evaluate/#{id}"
     end
 end
