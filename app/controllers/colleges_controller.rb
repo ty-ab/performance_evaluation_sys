@@ -9,11 +9,20 @@ class CollegesController < ApplicationController
 
   def create
     @college = College.new(college_params)
-    if @college.save
-      redirect_to colleges_path
-    else
-      render 'new'
-    end
+
+    respond_to do |format|
+      if @college.save
+        format.js
+      else
+        # format.html { render 'new'}
+      end
+        
+      end
+    # if @college.save
+    #   redirect_to colleges_path
+    # else
+    #   render 'new'
+    # end
   end
 
   def edit
