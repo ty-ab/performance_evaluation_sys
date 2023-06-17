@@ -1,71 +1,39 @@
 <h1>Colleges#index</h1>
-<p>Find me in app/views/colleges/index.html.erb</p>
-<ul>
-  <% @colleges.each do |college| %>
-  <li>
-    <%= link_to college.college_name, college_path(college) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to "Edit college", edit_college_path(college) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to 'Delete', college_path(college), method: :delete, data: {
-      turbo_method: :delete,
-      turbo_confirm: "Are you sure?"
-    } %> 
-  </li>
-
+<div class="container-fluid shadow rounded mt-3 pb-2">
+  <%= link_to new_college_path, class: "btn btn-primary my-2 float-end" do %>
+    <i class="bi bi-plus-square"></i><span class="mx-2">Add College</span>
   <% end %>
-</ul>
 
+  <div id="college-table">
+    <table class="table table-striped table-bordered table-auto">
+      <thead>
+        <tr class="table-primary">
+          <th></th>
+          <th>Course Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @colleges.each_with_index do |college, index| %>
+          <tr>
+            <td class="text-center"><%= index + 1 %></td>
+            <td class="text-center"><%= college.college_name %></td>
+            <td class="text-center">
+              <%= link_to edit_college_path(college), class: "btn btn-warning mx-5" do %>
+                <i class="bi bi-pencil-square"></i><span>Edit</span>
+              <% end %>
 
-<div class="container mt-3">
-  <%= button_tag(type: "button", class: "btn btn-primary my-2 float-end") do %>
-  <%= link_to new_college_path do %>
-    Add College
-  <% end %>
-<% end %>
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr class="table-primary">
-        <th>Course Name</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @colleges.each do |college| %>
-      <tr>
-        <td><%= college.college_name %></td>
-
-        <td><%= link_to "Edit", edit_college_path(college) %></td>
-        <td><%= link_to 'Delete', college_path(college), method: :delete, data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?"
-        } %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
+              <%= link_to college_path(college), method: :delete, class: "btn btn-danger mx-5", data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } do %>
+                <i class="bi bi-trash"></i><span>Delete</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
+

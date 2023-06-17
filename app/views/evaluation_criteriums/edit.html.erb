@@ -1,12 +1,14 @@
 <h1>EvaluationCriteriums#edit</h1>
-<p>Find me in app/views/evaluation_criteriums/edit.html.erb</p>
-<h1>Edit course</h1>
 <%= form_with(model: @evaluation_criterium, url: evaluation_criterium_path(@evaluation_criterium), method: :put) do |form| %>
-  <%= form.label :criteria %><br/>
-  <%= form.text_field :criteria, value: @evaluation_criterium.criteria %><br/>
-  <%= form.label :description %><br/>
-  <%= form.text_field :description, value: @evaluation_criterium.description %><br/>
+  <div class="mb-3">
+    <%= form.label :criteria, class: "form-label" %><br/>
+    <%= form.text_field :criteria, value: @evaluation_criterium.criteria, class: "form-control" %><br/>
+  </div>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %><br/>
+    <%= form.text_field :description, value: @evaluation_criterium.description, class: "form-control" %><br/>
+  </div>
 
   <br/><br/>
-  <%= form.submit %>
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>

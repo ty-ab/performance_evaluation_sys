@@ -1,9 +1,13 @@
 <h1>EvaluationCriteriums#new</h1>
-<p>Find me in app/views/evaluation_criteriums/new.html.erb</p>
 <%= form_with(model: @evaluation_criterium, url: evaluation_criteriums_path) do |form| %>
-  <%= form.label :criteria %><br/>
-  <%= form.text_field :criteria %><br/>
-  <%= form.label :description %><br/>
-  <%= form.text_field :description %><br/>
-  <%= form.submit %>
+  <div class="mb-3">
+    <%= form.label :criteria, class: "form-label" %><br/>
+    <%= form.text_field :criteria, class: "form-control" %><br/>
+  </div>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %><br/>
+    <%= form.text_field :description, class: "form-control" %><br/>
+  </div>
+  
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>

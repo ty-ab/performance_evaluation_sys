@@ -1,15 +1,24 @@
 <h1>Instructors#index</h1>
-<p>Find me in app/views/instructors/index.html.erb</p>
-<ul>
-  <% @instructors.each do |instructor| %>
-    <li><%= link_to instructor.name, instructor_path(instructor) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to "Edit instructor", edit_instructor_path(instructor) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to 'Delete', instructor_path(instructor), method: :delete, data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %> 
-    </li>
-    
-  <% end %>
-  </ul>
-<%= link_to "New instructor", new_instructor_path %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @instructors.each do |instructor| %>
+      <tr>
+        <td><%= link_to instructor.name, instructor_path(instructor) %></td>
+        <td>
+          <%= link_to "Edit", edit_instructor_path(instructor), class: "btn btn-primary me-2" %>
+          <%= link_to "Delete", instructor_path(instructor), method: :delete, class: "btn btn-danger", data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "New instructor", new_instructor_path, class: "btn btn-success" %>

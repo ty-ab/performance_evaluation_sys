@@ -1,8 +1,9 @@
 <h1>Colleges#edit</h1>
-<p>Find me in app/views/colleges/edit.html.erb</p>
-<h1>Edit college</h1>
 <%= form_with(model: @college, url: college_path(@college), method: :put) do |form| %>
-  <%= form.label :college_name %>
-  <%= form.text_field :college_name ,value: @college.college_name %>
-  <%= form.submit %>
+  <div class="mb-3">
+    <%= form.label :college_name, class: "form-label" %>
+    <%= form.text_field :college_name, value: @college.college_name, class: "form-control" %>
+  </div>
+  
+  <%= form.submit "Update College", class: "btn btn-primary" %>
 <% end %>

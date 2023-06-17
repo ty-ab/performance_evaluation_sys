@@ -1,36 +1,58 @@
 <h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+
 <%= form_with(model: @task, url: task_path(@task), method: :put) do |form| %>
 
+<div class="form-group">
   <%= form.label :course_id %><br/>
-  <%= form.select :course_id, options_for_select(courses_for_select,@task.course_id),include_blank: true %><br/>
+  <%= form.select :course_id, options_for_select(courses_for_select,@task.course_id), {include_blank: true}, class: "form-control" %><br/>
+</div>
 
-  <%= form.label :department_id %><br/>
-  <%= form.select :department_id, options_for_select(departments_for_select,@task.department_id),include_blank: true %><br/>
-
+<div class="form-group">
   <%= form.label :instructor_id %><br/>
-  <%= form.select :instructor_id, options_for_select(instructors_for_select,@task.instructor_id),include_blank: true %><br/>
+  <%= form.select :instructor_id, options_for_select(instructors_for_select,@task.instructor_id), {include_blank: true}, class: "form-control" %><br/>
+</div>
 
-
+<div class="form-group">
   <%= form.label :semester_id %><br/>
-  <%= form.select :semester_id, options_for_select(semesters_for_select,@task.semester_id),include_blank: true %><br/>
+  <%= form.select :semester_id, options_for_select(semesters_for_select,@task.semester_id), {include_blank: true}, class: "form-control" %><br/>
+</div>
 
-  <%= form.label :active %><br/>
-  <%= form.check_box  :active, value: @task.active %>
-<div class="field">
-    <%= form.label :start_eval,"Start evaluation" %>
-    <%= form.check_box :start_eval %>
-  </div>
-  <div class="field">
+
+<div class="form-group my-2">
+  <%= form.label :active %>
+  <%= form.check_box :active, value: @task.active, class: "form-check-input" %>
+</div>
+
+<div class="form-group my-2">
+  <%= form.label :start_eval, "Start evaluation" %>
+  <%= form.check_box :start_eval, value: @task.start_eval ,class: "form-check-input" %>
+</div>
+
+<div class="form-group">
   <%= form.label :student_ids, 'Students' %>
-  <%= form.collection_check_boxes :student_ids, Student.all, :id, :name do |b| %>
-    <div class="checkbox">
-      <%= b.check_box %>
-      <%= b.label %>
+  <div id="checkbox-container">
+    <% if @students.present? %>
+    <%= form.collection_check_boxes :student_ids, @students, :id, :name do |b| %>
+    <div class="form-check">
+      <%= b.check_box class: "form-check-input" %>
+      <%= b.label class: "form-check-label" %>
     </div>
-  <% end %>
+    <% end %>
+    <% else %>
+    <p>No students found.</p>
+    <% end %>
   </div>
+  <button id="more-button" class="btn btn-secondary my-2">Show</button>
+</div>
 
-  <br/><br/>
-  <%= form.submit %>
+<%= form.submit class: "btn btn-primary my-2" %>
 <% end %>
+<script>
+  $(document).ready(function() {
+    $('#more-button').click(function() {
+      $('#checkbox-container .form-check').toggle();
+    });
+  });
+</script>
+
+

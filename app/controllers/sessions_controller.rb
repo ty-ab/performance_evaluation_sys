@@ -41,6 +41,6 @@ class SessionsController < ApplicationController
     def destroy
         session[:user_id] = nil
         session[:user_type] = nil
-        # Redirect or perform actions after logout
+        redirect_to login_path, notice: 'Logged out successfully!'
     end
 end

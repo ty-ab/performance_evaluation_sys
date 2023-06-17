@@ -1,16 +1,21 @@
-evaluate
-<%= form_with(model: @evaluation_result, url: evaluation_evaluate_path,id: "form") do |form| %>
-  <div>
-    <%= @evaluation_form.form_fields.html_safe  %>
-  </div>
+<h3>evaluate</h3>
+<%= form_with(model: @evaluation_record, url: evaluation_evaluate_path, id: "form") do |form| %>
+  <% if @evaluation_form.present? %>
+    <div class="mb-3">
+      <%= @evaluation_form.form_fields.html_safe %>
+    </div>
+  <% else %>
+    <p>No form fields available.</p>
+  <% end %>
 
-  <%= form.hidden_field :detailed_result, value: nil,id: "detailed-result" %>
-  <%= form.hidden_field :instructor_id, value: @task.instructor_id %>
-  <%= form.hidden_field :semester_id, value: @task.semester_id %>
+
+  <%= form.hidden_field :record, value: nil, id: "detailed-result" %>
+  <%= form.hidden_field :task_id, value: params[:id] %>
   <%= form.hidden_field :evaluators, value: user_type %>
 
-  <%= form.submit :evaluate,value: "evaluate",id: "evaluate"%>
+  <%= form.submit :evaluate, value: "Evaluate", id: "evaluate", class: "btn btn-primary" %>
 <% end %>
+<%= @task.id %>
 
 <script>
 

@@ -1,23 +1,34 @@
 <h1>Students#new</h1>
-<p>Find me in app/views/students/new.html.erb</p>
-<%= form_with(model: @student, url: students_path) do |form| %>
-  <%= form.label :name %><br/>
-  <%= form.text_field :name %><br/>
+<%= form_with(model: @student, url: students_path, class: "form") do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %><br/>
+    <%= form.text_field :name, class: "form-control" %><br/>
+  </div>
 
-  <%= form.label :email %><br/>
-  <%= form.text_field :email %><br/>
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %><br/>
+    <%= form.text_field :email, class: "form-control" %><br/>
+  </div>
 
-  <%= form.label :password %><br/>
-  <%= form.text_field :password %><br/>
+  <div class="mb-3">
+    <%= form.label :password, class: "form-label" %><br/>
+    <%= form.password_field :password, class: "form-control" %><br/>
+  </div>
 
-  <%= form.label :college_id %><br/>
-  <%= form.select :college_id, options_for_select(colleges_for_select),include_blank: true %><br/>
+  <div class="mb-3">
+    <%= form.label :college_id, class: "form-label" %><br/>
+    <%= form.select :college_id, options_for_select(colleges_for_select), { include_blank: true }, class: "form-select" %><br/>
+  </div>
 
-  <%= form.label :department_id %><br/>
-  <%= form.select :department_id, options_for_select(departments_for_select),include_blank: true %><br/>
+  <div class="mb-3">
+    <%= form.label :department_id, class: "form-label" %><br/>
+    <%= form.select :department_id, options_for_select(departments_for_select), { include_blank: true }, class: "form-select" %><br/>
+  </div>
 
-  <%= form.label :semester_id %><br/>
-  <%= form.select :semester_id, options_for_select(semesters_for_select),include_blank: true %><br/>
+  <div class="mb-3">
+    <%= form.label :semester_id, class: "form-label" %><br/>
+    <%= form.select :semester_id, options_for_select(semesters_for_select), { include_blank: true }, class: "form-select" %><br/>
+  </div>
 
-  <%= form.submit %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
 <% end %>

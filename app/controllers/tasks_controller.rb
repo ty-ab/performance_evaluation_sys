@@ -5,6 +5,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @students = Student.where(department_id: current_user.ho_d_department.department_id)
   end
 
   def show
@@ -22,6 +23,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    @students = Student.where(department_id: current_user.ho_d_department.department_id)
   end
 
   def update

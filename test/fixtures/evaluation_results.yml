@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  instructor: one
-  semester: one
-  detailed_result: MyText
-  total_result: 1.5
+  percentage_agreement: 
+  overall_percentage_agreement: 1.5
+  evaluation_record: one
 
 two:
-  instructor: two
-  semester: two
-  detailed_result: MyText
-  total_result: 1.5
+  percentage_agreement: 
+  overall_percentage_agreement: 1.5
+  evaluation_record: two

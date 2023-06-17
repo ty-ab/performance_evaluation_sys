@@ -1,16 +1,47 @@
-<header class="d-flex flex-wrap align-items-center justify-content-between py-3 border-bottom bg-dark">
-  <div class="d-flex align-items-start mx-5 mb-2 mb-md-0">
-    <%# <a href="#" class="ms-1 text-white text-decoration-none">
-      <i class="fs-1 bi bi-list"></i>
-    </a> %>
-    <a href="/" class="ms-2 text-white text-decoration-none">
-      <i class="fs-1 bi-house"></i>
-    </a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>  
+
+
+        <% if logged_in? %>
+        <li class="nav-item dropdown col-md-3 text-end">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <%= current_user.name %>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Link</a></li>
+            <li><a class="dropdown-item" href="#">Another link</a></li>
+            <li>
+              <%= link_to "Logout", logout_path, method: :delete, class: "dropdown-item", data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } %>
+
+            </li>
+          </ul>
+        </li>
+        nav-item   <% else %>
+        <% unless current_page?(login_path) %>
+        <li class="nav-item col-md-3 text-end">
+          <%= link_to "Login", login_path, class: "btn btn-outline-primary me-2" %>
+        </li>
+        <% end %>
+        nav-item   <% end %>
+      </ul>
+    </div>
   </div>
-
-
-
-      <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-      </div>
-</header>
+</nav>

@@ -1,0 +1,43 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>Course</th>
+      <th>Department</th>
+      <th>Semester</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @tasks.present? %>
+    <% @tasks.each do |task| %>
+    <% if current_user.college == task.instructor.college && task.start_eval %>
+    <tr>
+      <td><%= task.instructor.name %></td>
+      <td><%= task.course.course_name %></td>
+      <td><%= task.department.dep_name %></td>
+      <td><%= task.semester.sem %></td>
+      <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary m-1" %>
+        <%= form_with(model: task, url: end_evaluation_path(task), method: :put) do |form| %>
+        <%= form.hidden_field :start_eval, value: false %>
+        <%= form.submit "End evaluation", class: "btn btn-secondary m-1" %>
+        <% end %>
+      </td>
+    </tr>
+
+    <% else %>
+    <tr>
+      <td><%= task.instructor.name %></td>
+      <td><%= task.course.course_name %></td>
+      <td><%= task.department.dep_name %></td>
+      <td><%= task.semester.sem %></td>
+      <td><%= link_to "Evaluate", evaluate_task_path(task),  class: "btn btn-primary disabled" %>
+      </td>
+    </tr>
+    <% end %>
+    <% end %>
+    <% else %>
+    <%= render partial: 'no_task' %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PerformanceEvaluationSys</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>PerformanceEvaluationSys</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%# <%= javascript_importmap_tags %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%# <%= javascript_importmap_tags %>
+  <%= javascript_include_tag 'jquery' %> <!-- Include jQuery -->
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
 
-  <body style="background-color: #f8f9fa !important;">
+<body style="background-color: #f8f9fa !important;">
   <%= render partial: 'shared/header' %>
-    <%= yield %>
-  </body>
+
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <% unless current_page?(login_path) %> <!-- Check if it's not the login page -->
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+        <% if current_user.is_a?(Admin) %>
+          <%= render partial: 'shared/admin_sidebar' %>
+        <% elsif current_user.is_a?(Student) %>
+          <%= render partial: 'shared/student_sidebar' %>
+        <% elsif current_user.is_a?(Instructor) && current_user.ho_d_department.present? %>
+          <%= render partial: 'shared/hod_sidebar' %>
+        <% elsif current_user.is_a?(Instructor) %>
+          <%= render partial: 'shared/instructer_sidebar' %>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="content col py-3" id="dynamic-content">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

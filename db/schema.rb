@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_04_163009) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_204435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,16 +48,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_163009) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evaluation_results", force: :cascade do |t|
-    t.bigint "instructor_id", null: false
-    t.bigint "semester_id", null: false
-    t.jsonb "detailed_result"
-    t.float "total_result"
+  create_table "evaluation_records", force: :cascade do |t|
+    t.jsonb "record"
+    t.string "evaluators"
+    t.bigint "task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "evaluators"
-    t.index ["instructor_id"], name: "index_evaluation_results_on_instructor_id"
-    t.index ["semester_id"], name: "index_evaluation_results_on_semester_id"
+    t.index ["task_id"], name: "index_evaluation_records_on_task_id"
+  end
+
+  create_table "evaluation_results", force: :cascade do |t|
+    t.jsonb "percentage_agreement"
+    t.float "overall_percentage_agreement"
+    t.bigint "evaluation_record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_record_id"], name: "index_evaluation_results_on_evaluation_record_id"
   end
 
   create_table "ho_d_departments", force: :cascade do |t|
@@ -132,8 +138,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_163009) do
   end
 
   add_foreign_key "departments", "colleges"
-  add_foreign_key "evaluation_results", "instructors"
-  add_foreign_key "evaluation_results", "semesters"
+  add_foreign_key "evaluation_records", "tasks"
+  add_foreign_key "evaluation_results", "evaluation_records"
   add_foreign_key "ho_d_departments", "departments"
   add_foreign_key "ho_d_departments", "instructors"
   add_foreign_key "instructors", "colleges"

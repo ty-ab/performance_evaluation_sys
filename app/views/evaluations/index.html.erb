@@ -1,31 +1,9 @@
 list of to be evaluated
 
-
-<% if user_type == "student" %>
-  <ul>
-    <% current_user.tasks.each do |task| %>
-      <% if task.start_eval %>
-      <li>
-        <%= link_to task.instructor.name, evaluation_path(task.id) %>&nbsp;&nbsp;&nbsp;
-        <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
-        <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
-        <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
-      </li>
-      <% end %>
-    <% end %>
-  </ul>
-<% elsif user_type == "instructor" %>
-  <!-- Code for the instructor section goes here -->
-  <ul>
-    <% current_user.tasks.each do |task| %>
-      <% if task.start_eval %>
-      <li>
-        <%= link_to task.instructor.name, evaluation_path(task.id) %>&nbsp;&nbsp;&nbsp;
-        <%= task.course.course_name %>&nbsp;&nbsp;&nbsp;
-        <%= task.department.dep_name %>&nbsp;&nbsp;&nbsp;
-        <%= task.semester.sem %>&nbsp;&nbsp;&nbsp;
-      </li>
-      <% end %>
-    <% end %>
-  </ul>
+<% if current_user.is_a?(Student) %>
+<%= render partial: 'student_evaluation_list' %>
+<% elsif current_user.is_a?(Instructor) && current_user.ho_d_department.present? %>
+<%= render partial: 'hod_evaluation_list' %>
+<% elsif current_user.is_a?(Instructor) %>
+<%= render partial: 'instructor_evaluation_list' %>
 <% end %>

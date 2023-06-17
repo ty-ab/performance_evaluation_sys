@@ -1,7 +1,8 @@
+<h1>Colleges#new</h1>
 <div class="form-group">
   <%= form_with(model: @college, url: colleges_path, remote: true) do |form| %>
-  <%= form.label :college_name, class: "form-label" %>
-  <%= form.text_field :college_name, class: "form-control" %>
-  <%= form.submit "Submit", class: "btn btn-primary" %>
+    <%= form.label :college_name, class: "form-label" %>
+    <%= form.text_field :college_name, class: "form-control" %>
+    <%= form.submit "Submit", class: "btn btn-primary my-2" %>
   <% end %>
 </div>

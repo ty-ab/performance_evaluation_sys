@@ -1,14 +1,41 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
-  <% @users.each do |user| %>
-    <li><%= link_to user.name, user_path(user) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to "Edit user", edit_user_path(user) %>&nbsp;&nbsp;&nbsp;
-    <%= link_to 'Delete', user_path(user), method: :delete, data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %> 
-</li>
-    
+<h1>Users</h1>
+
+<div class="container-fluid shadow rounded mt-3 pb-2 ">
+
+  <%= link_to new_user_path, class: "btn btn-primary my-2 float-end" do %>
+  <i class="bi bi-plus-square"></i><span class="mx-2">Add User</span>
   <% end %>
-</ul>
-<%= link_to "New user", new_user_path %>
+  <div id="user-table">
+    <table class="table table-striped table-bordered table-auto ">
+      <thead>
+        <tr class="table-primary">
+          <th></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each_with_index do |user,index| %>
+        <tr>
+          <td class="text-center"><%= index + 1 %></td>
+          <td class="text-center"><%= user.name %></td>
+          <td class="text-center"><%= user.email %></td>
+          <td class="text-center">
+            <%= link_to edit_user_path(user), class: "btn btn-warning mx-5" do %>
+            <i class="bi bi-pencil-square"></i><span>Edit</span>
+            <% end %>
+
+            <%= link_to user_path(user), method: :delete, class: "btn btn-danger mx-5",data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            } do %>
+            <i class="bi bi-trash"></i><span>Delete</span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
