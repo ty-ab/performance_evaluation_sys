@@ -31,7 +31,15 @@
       </div>
       <% end %>
       <div class="content col py-3" id="dynamic-content">
+         <% if notice %>
+  <div class="alert alert-success notice" role="alert">
+    <%= notice %>
+  </div>
+  <% end %>
+  <div class="container">
+    
         <%= yield %>
+  </div>
       </div>
     </div>
   </div>

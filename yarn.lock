@@ -224,6 +224,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rails/actiontext@npm:^7.0.5":
+  version: 7.0.5
+  resolution: "@rails/actiontext@npm:7.0.5"
+  dependencies:
+    "@rails/activestorage": ">= 7.0.0-alpha1"
+  peerDependencies:
+    trix: ^1.3.1
+  checksum: 7a37bf55a37e7fa74db5345f8a89363a1636b0596557503360967d3d1d838f740950e8994331636a4714effae95f338fd06ddbe4e8c9a8bd12512b9f01e658fd
+  languageName: node
+  linkType: hard
+
+"@rails/activestorage@npm:>= 7.0.0-alpha1":
+  version: 7.0.5
+  resolution: "@rails/activestorage@npm:7.0.5"
+  dependencies:
+    spark-md5: ^3.0.1
+  checksum: 57906778b180af14f0395f179a2908f293541f22acf35edc3b9b94c62db226412f160fcba7b43238263f7c54e652babbba37197ed8747c08176abc7900f8a153
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -1090,11 +1110,13 @@ __metadata:
     "@hotwired/stimulus": ^3.2.1
     "@hotwired/turbo-rails": ^7.3.0
     "@popperjs/core": ^2.11.8
+    "@rails/actiontext": ^7.0.5
     bootstrap: ^5.3.0
     bootstrap-icons: ^1.10.5
     esbuild: ^0.18.3
     jquery: ^3.7.0
     sass: ^1.63.4
+    trix: ^2.0.5
   languageName: unknown
   linkType: soft
 
@@ -1247,6 +1269,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"spark-md5@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "spark-md5@npm:3.0.2"
+  checksum: 5feebff0bfabcecf56ba03af3e38fdb068272ed41fbf0a94ff9ef65b9bb9cb1dd69be3684db6542e62497b1eac3ae324c07ac4dcb606465dc36ca048177077bf
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -1305,6 +1334,13 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
+  languageName: node
+  linkType: hard
+
+"trix@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "trix@npm:2.0.5"
+  checksum: e318ad0a2956945792e6b279e2cfeb9182c4e72a50de6392bc7ee2d058d509274758ebeb7ef1dee6d215e7d6418ed2675706029fe3acd9d4c8a7ba833f833388
   languageName: node
   linkType: hard
 

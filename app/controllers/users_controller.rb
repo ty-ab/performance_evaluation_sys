@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path
     else
-      render 'new'
+      render 'new',status: :unprocessable_entity
     end
   end
 
@@ -45,9 +45,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.type.blank?
-      @user.update(user_params1) ? redirect_to(users_path) : render('edit')
+      @user.update(user_params1) ? redirect_to(users_path) : render('edit',status: :unprocessable_entity)
     else
-      @user.update(admin_params) ? redirect_to(users_path) : render('edit')
+      @user.update(admin_params) ? redirect_to(users_path) : render('edit',status: :unprocessable_entity)
     end
   end
   

@@ -16,7 +16,7 @@ class InstructorsController < ApplicationController
     if @instructor.save
       redirect_to instructors_path
     else
-      render 'new'
+      render 'new' ,status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class InstructorsController < ApplicationController
     if @instructor.update(instructor_params1)
       redirect_to instructors_path
     else
-      render 'edit'
+      render 'edit',status: :unprocessable_entity
     end
   end
 

@@ -1,106 +1,139 @@
-<h1>EvaluationForms#new</h1>
-
 <%= form_with(model: @evaluation_form, url: evaluation_forms_path, id: 'data-form') do |form| %>
-  <div class="container-fluid my-4">
-    <div id="dynamic-fields-container" class="mb-3">
-      <!-- Existing form fields or generated radio buttons can be inserted here -->
-    </div>
-
-    <div class="form-group mb-3">
-      <label for="evaluation-criterium-select" class="form-label">Evaluation Criterium</label>
-      <select name="evaluation_criterium_id" id="evaluation-criterium-select" class="form-select">
-        <% @evaluation_criteriums.each do |criterium| %>
-          <option value="<%= criterium.id %>" data-name="<%= criterium.criteria %>" data-description="<%= criterium.description %>">
-            <%= criterium.criteria %>
-          </option>
-        <% end %>
-      </select>
-    </div>
-
-    <%= form.hidden_field :form_fields, value: nil, id: "hidden-field" %>
-
-<div class="form-group mb-3">
-  <label for="evaluation-form-evaluator" class="form-label">Evaluator</label>
-  <%= form.select :evaluator, [["Evaluator", nil],["Student","student"], ["Instructor","instructor"]], {}, class: "form-select form-control" %>
-</div>
-
-
-    <%= form.submit :submit_form_fields, value: "Save Form Fields", id: "submit-form-fields", class: "btn btn-primary" %>
-
-<button id="add-radio-buttons" class="btn btn-secondary">Add Radio Buttons</button>
+<div class="container-fluid my-4">
+  <div id="dynamic-fields-containers" class="mb-3">
+    <!-- Existing form fields or generated radio buttons can be inserted here -->
   </div>
+  <div class="form-group mb-3">
+    <label for="evaluation-form-evaluator" class="form-label">Evaluators</label>
+    <%= form.select :evaluator, [["Evaluator", nil],["Student","student"], ["Instructor","instructor"], ["Head of Department","hod"]], {}, class: "form-select form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="evaluation-criterium-checkboxes" class="form-label">Evaluation Criterias</label>
+    <div class="evaluation-criterium-container">
+      <div class="evaluation-criterium-scroll">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="check-all-criterias">
+          <label class="form-check-label mb-3" for="check-all-criterias">Check All</label>
+        </div>
+        <% @evaluation_criteriums.each do |evaluation_criterium| %>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="evaluation_criterium_ids[]" id="evaluation-criterium-<%= evaluation_criterium.id %>" value="<%= evaluation_criterium.id %>">
+          <label class="form-check-label" for="evaluation-criterium-<%= evaluation_criterium.id %>">
+            <figure class="text-end">
+              <blockquote class="blockquote">
+                <p><%= evaluation_criterium.description %></p>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+                <%= evaluation_criterium.for %>
+              </figcaption>
+            </figure>
+          </label>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= form.hidden_field :form_fields, value: nil, id: "hidden-field" %>
+
+
+  <button id="add-radio-buttons" class="btn btn-secondary">Add Evaluation Field</button>
+  <%= form.submit :submit_form_fields, value: "Save Form Fields", id: "submit-form-fields", class: "btn btn-primary" %>
+</div>
 <% end %>
 
-
+<style>
+  .evaluation-criterium-container {
+    height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
+</style>
 
 <script>
-  // Retrieve the select element and add an event listener to capture the selected option
-  var selectElement = document.getElementById('evaluation-criterium-select');
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var checkAllCriteriasCheckbox = document.getElementById('check-all-criterias');
   var submitFormFields = document.getElementById('submit-form-fields');
   var form = document.getElementById('data-form');
 
-  var selectedName = "blank";
-  var selectedDescription = "blank";
+  var containers = []; // Array to store dynamic fields containers
 
-  selectElement.addEventListener('change', function() {
-    var selectedOption = selectElement.options[selectElement.selectedIndex];
-    selectedName = selectedOption.getAttribute('data-name');
-    selectedDescription = selectedOption.getAttribute('data-description');
-    selectedId = selectedOption.getAttribute('value');
-    
-    // Use the captured data as needed
-    console.log('Selected Name:', selectedName);
-    console.log('Selected Id:', selectedId);
-    console.log('Selected Description:', selectedDescription);
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      containers = []; // Reset containers array on each change
+
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+          var selectedId = checkbox.getAttribute('value');
+          var selectedDescription = checkbox.labels[0].innerText;
+
+          var container = document.createElement('div');
+          container.classList.add('dynamic-fields-container');
+          container.innerHTML = generateFieldHTML(selectedId, selectedDescription);
+          containers.push(container);
+        }
+      });
+    });
   });
 
-  var addButton = document.getElementById('add-radio-buttons');
-  var container = document.getElementById('dynamic-fields-container');
+  checkAllCriteriasCheckbox.addEventListener('change', function() {
+    checkboxes.forEach(function(checkbox) {
+      checkbox.checked = checkAllCriteriasCheckbox.checked;
+    });
+  });
 
-  addButton.addEventListener('click', function(event) {
-    event.preventDefault();
+  function generateFieldHTML(id, description) {
     var fieldHtml = `
-      <div class="form-group">
-      <p>${selectedDescription}:</p>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${selectedId}]" value="1" id="q${selectedId}_1">
-        <label class="form-check-label" for="q${selectedId}_1">1</label>
-      </div>
-      
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${selectedId}]" value="2" id="q${selectedId}_2">
-        <label class="form-check-label" for="q${selectedId}_2">2</label>
-      </div>
+    <div class="form-group">
+    <p>${description}:</p>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${id}]" value="1" id="q${id}_1">
+    <label class="form-check-label" for="q${id}_1">1</label>
+    </div>
 
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${selectedId}]" value="3" id="q${selectedId}_3">
-        <label class="form-check-label" for="q${selectedId}_3">3</label>
-      </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${id}]" value="2" id="q${id}_2">
+    <label class="form-check-label" for="q${id}_2">2</label>
+    </div>
 
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${selectedId}]" value="4" id="q${selectedId}_4">
-        <label class="form-check-label" for="q${selectedId}_4">4</label>
-      </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${id}]" value="3" id="q${id}_3">
+    <label class="form-check-label" for="q${id}_3">3</label>
+    </div>
 
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${selectedId}]" value="5" id="q${selectedId}_5">
-        <label class="form-check-label" for="q${selectedId}_5">5</label>
-      </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${id}]" value="4" id="q${id}_4">
+    <label class="form-check-label" for="q${id}_4">4</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="evaluation_form[form_fields][${id}]" value="5" id="q${id}_5">
+    <label class="form-check-label" for="q${id}_5">5</label>
+    </div>
     </div>
     `;
 
-    container.insertAdjacentHTML('beforeend', fieldHtml);
+    return fieldHtml;
+  }
+
+  var addButton = document.getElementById('add-radio-buttons');
+  var containersContainer = document.getElementById('dynamic-fields-containers');
+
+  addButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    containers.forEach(function(container) {
+      containersContainer.appendChild(container.cloneNode(true));
+    });
   });
 
   submitFormFields.addEventListener('click', function(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  var hiddenField = document.getElementById('hidden-field');
-  hiddenField.value = container.innerHTML;
+    var hiddenField = document.getElementById('hidden-field');
+    hiddenField.value = containersContainer.innerHTML;
 
-  // Trigger the form submission after a brief delay to allow the container.innerHTML to be updated
-  setTimeout(function() {
-    form.submit();
-  }, 100);
-});
+    setTimeout(function() {
+      form.submit();
+    }, 100);
+  });
 </script>

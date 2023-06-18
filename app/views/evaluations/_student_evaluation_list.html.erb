@@ -11,7 +11,7 @@
   <tbody>
     <% if current_user.tasks.present? %>
       <% current_user.tasks.each do |task| %>
-        <% if task.start_eval %>
+        <% if task.active && task.start_eval %>
           <tr>
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
@@ -19,7 +19,7 @@
             <td><%= task.semester.sem %></td>
             <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary" %></td>
           </tr>
-        <% else %>
+        <% elsif task.active %>
           <tr>
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
@@ -30,9 +30,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <tr>
-        <%= render partial: 'no_task' %>
-      </tr>
+      <%= render partial: 'no_task' %>
     <% end %>
   </tbody>
 </table>

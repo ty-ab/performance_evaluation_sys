@@ -1,11 +1,19 @@
 class EvaluationsController < ApplicationController
+    include EvaluationsHelper
+
     def index
         @tasks = Task.all
     end
 
     def evaluate
         @task = Task.find(params[:id])
-        @evaluation_form = EvaluationForm.find_by(evaluator: session[:user_type])
+        
+        if current_user.is_a?(Instructor) && current_user.ho_d_department.present?
+            @evaluation_form = EvaluationForm.find_by(evaluator: "hod")
+        else
+            @evaluation_form = EvaluationForm.find_by(evaluator: session[:user_type])
+        end
+        
         @evaluation_record = EvaluationRecord.new
     end
 
@@ -29,29 +37,37 @@ class EvaluationsController < ApplicationController
   def show
     begin
         @tasks = Task.where(instructor_id: params[:id])
-        @evaluation_records = EvaluationRecord.where(task_id: @tasks.pluck(:id))
+        @evaluation_results = EvaluationResult.where(task_id: @tasks.pluck(:id))
+        @evaluation_criteriums = EvaluationCriterium.all
     rescue ActiveRecord::RecordNotFound
                 # Article with the specified ID does not exist
-                flash[:error] = "record not found."
-                redirect_to root_path
-            end
+            flash[:error] = "record not found."
+            redirect_to root_path
         end
+    end
 
-        def end_evaluation
+    def end_evaluation
             @task = Task.find(params[:id])
             @evaluation_records = EvaluationRecord.where(task_id: @task)
 
+            mean = combined_mean(@evaluation_records)
 
+            percentage = compute_percentage(mean[:student][:average_value],mean[:instructor][:average_value],mean[:hod][:average_value])
 
+          puts "TDEBUG:-#{mean[:student][:average_value]}"
 
-           evaluation_records = []
+          @evaluation_result = EvaluationResult.new
 
-          @evaluation_records.each do |evaluation_record|
-              evaluation_records << evaluation_record.record
+          @evaluation_result.combined_mean = mean
+          @evaluation_result.total_percentage = percentage
+          @evaluation_result.task_id = params[:id]
+
+          if @evaluation_result.save
+            @task.start_eval = false
+            @task.active = false
+            @task.save
           end
-
-          puts "TDEBUG:-#{evaluation_records}"
-          compute_record(evaluation_records)
+          
         # EvaluationResult.create();
 
         # if @task.start_eval
@@ -69,40 +85,7 @@ class EvaluationsController < ApplicationController
     def task_params
         params.require(:task).permit(:start_eval)
     end
-
-    def compute_record(data)
-        # Parse the JSON data
-        responses = JSON.parse(data.to_json)
-
-        # Initialize counters for each statement
-        statement_counts = Hash.new(0)
-
-        # Count the number of ratings for each statement
-        responses.each do |response|
-            response.each do |statement, rating|
-                statement_counts[statement] += 1 if rating.to_i >= 4
-            end
-        end
-
-        # Calculate the percentage agreement for each statement
-        percentage_agreements = {}
-        statement_counts.each do |statement, count|
-            percentage_agreements[statement] = (count.to_f / responses.size) * 100
-        end
-
-        # Calculate the overall percentage agreement
-        overall_percentage_agreement = (percentage_agreements.values.sum / percentage_agreements.size)
-
-
-        # # Output the results
-        # percentage_agreements.each do |statement, percentage|
-        #   puts "#{statement}: #{percentage}%"
-        # end
-
-        # puts "Overall Percentage Agreement: #{overall_percentage_agreement}%"
-
-        return {percentage_agreement: percentage_agreements, overall_percentage_agreement: overall_percentage_agreement}
-    end
     
 
 end
+

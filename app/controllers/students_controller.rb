@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     if @student.save
       redirect_to students_path
     else
-      render 'new'
+      render 'new',status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
     if @student.update(student_params1)
       redirect_to students_path
     else
-      render 'edit'
+      render 'edit',status: :unprocessable_entity
     end
   end
 

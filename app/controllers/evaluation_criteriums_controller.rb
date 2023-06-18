@@ -11,8 +11,19 @@ class EvaluationCriteriumsController < ApplicationController
   # end
 
   def create
-    @evaluation_criterium = EvaluationCriterium.new(evaluation_criterium_params)
-    if @evaluation_criterium.save
+
+    lines = params[:evaluation_criterium][:description].split("\n")
+
+    evaluation_for  = params[:evaluation_criterium][:for]
+
+    successful_save = true
+
+    lines.each do |line|
+      evaluation_criterium = EvaluationCriterium.new(description: line,for: evaluation_for)
+      successful_save = false unless evaluation_criterium.save
+    end
+
+    if successful_save
       redirect_to evaluation_criteriums_path
     else
       render 'new'
@@ -40,6 +51,6 @@ class EvaluationCriteriumsController < ApplicationController
 
   private
   def evaluation_criterium_params
-    params.require(:evaluation_criterium).permit(:criteria,:description)
+    params.require(:evaluation_criterium).permit(:for,:description)
   end
 end

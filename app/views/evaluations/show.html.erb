@@ -1,59 +1,53 @@
-<h2>Show Result</h2>
-<%= @evaluation_records %>
-<% detailed_result = nil %>
-<% @evaluation_records.each do |evaluation_record| %>
-  <% detailed_result = evaluation_record.record %>
-<% end %>
-<p><%= detailed_result %></p>
-
-<% data = [
-  {"evaluation_form[form_fields][5]":"5","evaluation_form[form_fields][3]":"5","evaluation_form[form_fields][4]":"5","evaluation_form[form_fields][2]":"4"},
-  {"evaluation_form[form_fields][5]":"5","evaluation_form[form_fields][3]":"5","evaluation_form[form_fields][4]":"5","evaluation_form[form_fields][2]":"4"},
-  {"evaluation_form[form_fields][5]":"5","evaluation_form[form_fields][3]":"5","evaluation_form[form_fields][4]":"5","evaluation_form[form_fields][2]":"4"},
-  {"evaluation_form[form_fields][5]":"5","evaluation_form[form_fields][3]":"4","evaluation_form[form_fields][4]":"5","evaluation_form[form_fields][2]":"4"}
-] %>
-
-
-<br>
-
-<% combined_data = {} %>
-
-<% data.each do |item| %>
-  <% item.each do |key, value| %>
-    <% field = key.to_s.gsub("evaluation_form[form_fields][", "").gsub("]", "").to_i %>
-    <% combined_data[field] ||= [] %>
-    <% combined_data[field] << value.to_i %>
+<div class="container">
+  <h2>Show Result</h2>
+  <% @evaluation_results.each do |evaluation_result| %>
+    <h3>HOD</h3>
+    <% if evaluation_result.combined_mean.key?("hod") %>
+      <table class="table">
+        <thead><tr><th>Key</th><th>Value</th></tr></thead>
+        <tbody>
+          <% evaluation_result.combined_mean["hod"]["averages"].each do |key, value| %>
+            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["hod"]["average_value"] %></p>
+    <% else %>
+      <p>No data available for HOD</p>
+    <% end %>
+  
+    <h3>Student</h3>
+    <% if evaluation_result.combined_mean.key?("student") %>
+      <table class="table">
+        <thead><tr><th>Key</th><th>Value</th></tr></thead>
+        <tbody>
+          <% evaluation_result.combined_mean["student"]["averages"].each do |key, value| %>
+            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["student"]["average_value"] %></p>
+    <% else %>
+      <p>No data available for Student</p>
+    <% end %>
+  
+    <h3>Instructor</h3>
+    <% if evaluation_result.combined_mean.key?("instructor") %>
+      <table class="table">
+        <thead><tr><th>Key</th><th>Value</th></tr></thead>
+        <tbody>
+          <% evaluation_result.combined_mean["instructor"]["averages"].each do |key, value| %>
+            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["instructor"]["average_value"] %></p>
+    <% else %>
+      <p>No data available for Instructor</p>
+    <% end %>
+  
+    <p><strong>Total:</strong> <%= evaluation_result.total_percentage %></p>
+  
+    <hr>
   <% end %>
-<% end %>
-
-<% averages = combined_data.transform_values { |values| values.sum / values.size.to_f } %>
-
-<% total_fields = averages.size %>
-<% agreement_count = averages.count { |_field, avg| avg == 4 } %>
-<% percentage_agreement = (agreement_count.to_f / total_fields) * 100 %>
-
-<%= percentage_agreement %>
-
-<br>
-<% combined_data = {} %>
-<% total_fields = 0 %>
-
-<% data.each do |item| %>
-  <% item.each do |key, value| %>
-    <% field = key.to_s.scan(/\d+/).first.to_i %>
-    <% combined_data[field] ||= [] %>
-    <% combined_data[field] << value.to_i %>
-    <% total_fields = [total_fields, field].max %>
-  <% end %>
-<% end %>
-
-<% averages = combined_data.transform_values { |values| values.sum / values.size.to_f } %>
-
-<% agreement_count = averages.count { |_field, avg| avg == 3 } %>
-<% percentage_agreement = (agreement_count.to_f / total_fields) * 100 %>
-
-<% average_value = averages.values.sum / averages.size.to_f %>
-
-<%= averages %><br>
-<%= percentage_agreement %>%<br>
-<%= average_value %><br>
+</div>

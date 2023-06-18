@@ -1,3 +1,3 @@
 class EvaluationResult < ApplicationRecord
-  belongs_to :evaluation_record
+  belongs_to :task
 end
