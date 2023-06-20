@@ -13,10 +13,9 @@
 </div>
 
 <div class="form-group">
-  <%= form.label :semester_id %><br/>
-  <%= form.select :semester_id, options_for_select(semesters_for_select,@task.semester_id), {include_blank: true}, class: "form-control" %><br/>
+  <%= form.label :semester %><br/>
+  <%= form.text_field :semester,value: @task.semester, class: "form-control" %><br/>
 </div>
-
 
 <div class="form-group my-2">
   <%= form.label :active %>

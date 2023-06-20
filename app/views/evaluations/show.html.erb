@@ -1,53 +1,8 @@
 <div class="container">
   <h2>Show Result</h2>
   <% @evaluation_results.each do |evaluation_result| %>
-    <h3>HOD</h3>
-    <% if evaluation_result.combined_mean.key?("hod") %>
-      <table class="table">
-        <thead><tr><th>Key</th><th>Value</th></tr></thead>
-        <tbody>
-          <% evaluation_result.combined_mean["hod"]["averages"].each do |key, value| %>
-            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
-          <% end %>
-        </tbody>
-      </table>
-      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["hod"]["average_value"] %></p>
-    <% else %>
-      <p>No data available for HOD</p>
-    <% end %>
   
-    <h3>Student</h3>
-    <% if evaluation_result.combined_mean.key?("student") %>
-      <table class="table">
-        <thead><tr><th>Key</th><th>Value</th></tr></thead>
-        <tbody>
-          <% evaluation_result.combined_mean["student"]["averages"].each do |key, value| %>
-            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
-          <% end %>
-        </tbody>
-      </table>
-      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["student"]["average_value"] %></p>
-    <% else %>
-      <p>No data available for Student</p>
-    <% end %>
-  
-    <h3>Instructor</h3>
-    <% if evaluation_result.combined_mean.key?("instructor") %>
-      <table class="table">
-        <thead><tr><th>Key</th><th>Value</th></tr></thead>
-        <tbody>
-          <% evaluation_result.combined_mean["instructor"]["averages"].each do |key, value| %>
-            <tr><td><%= @evaluation_criteriums.find(key).description %></td><td><%= value %></td></tr>
-          <% end %>
-        </tbody>
-      </table>
-      <p><strong>Average Value:</strong> <%= evaluation_result.combined_mean["instructor"]["average_value"] %></p>
-    <% else %>
-      <p>No data available for Instructor</p>
-    <% end %>
-  
-    <p><strong>Total:</strong> <%= evaluation_result.total_percentage %></p>
-  
+    <p><strong>Total:</strong><%= sprintf('%.4f', evaluation_result.total_percentage) %></p>
     <hr>
   <% end %>
 </div>

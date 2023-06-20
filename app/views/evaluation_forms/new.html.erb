@@ -1,61 +1,86 @@
 <%= form_with(model: @evaluation_form, url: evaluation_forms_path, id: 'data-form') do |form| %>
-<div class="container-fluid my-4">
-  <div id="dynamic-fields-containers" class="mb-3">
-    <!-- Existing form fields or generated radio buttons can be inserted here -->
-  </div>
-  <div class="form-group mb-3">
-    <label for="evaluation-form-evaluator" class="form-label">Evaluators</label>
-    <%= form.select :evaluator, [["Evaluator", nil],["Student","student"], ["Instructor","instructor"], ["Head of Department","hod"]], {}, class: "form-select form-control" %>
-  </div>
+<div class="my-4 ">
 
-  <div class="form-group mb-3">
-    <label for="evaluation-criterium-checkboxes" class="form-label">Evaluation Criterias</label>
-    <div class="evaluation-criterium-container">
-      <div class="evaluation-criterium-scroll">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="check-all-criterias">
-          <label class="form-check-label mb-3" for="check-all-criterias">Check All</label>
+  <div class="row">
+    <div class="col-8"> 
+     <div class="form-group mb-3">
+      <label for="evaluation-form-evaluator" class="form-label">Evaluators:</label>
+      <%= form.select :evaluator, [["Select Evaluators", nil],["Students","student"], ["Instructors","instructor"], ["Head of departments","hod"]], {}, class: "form-select form-control" %>
+      <% if @evaluation_form.errors.has_key?(:evaluator) %>
+      <% @evaluation_form.errors[:evaluator].each do |message| %>
+      <div class="text-danger"><%= message %></div>
+      <% end %>
+      <% end %>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="evaluation-criterium-checkboxes" class="form-label">Evaluation Criterias:</label>
+      <div class="form-check m-4 float-end">
+        <input class="form-check-input" type="checkbox" id="check-all-criterias">
+        <label class="form-check-label fw-bolder" for="check-all-criterias">Check All</label>
+      </div>
+      <div class="evaluation-criterium-container border px-2">
+        <div class="evaluation-criterium-scroll">
+
+          <% @evaluation_criteriums.each do |evaluation_criterium| %>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="evaluation_criterium_ids[]" id="evaluation-criterium-<%= evaluation_criterium.id %>" value="<%= evaluation_criterium.id %>">
+            <label class="form-check-label" for="evaluation-criterium-<%= evaluation_criterium.id %>">
+              <figure class="text-end">
+                <blockquote class="blockquote">
+                  <p><%= evaluation_criterium.description %></p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                  <%= evaluation_criterium.for %>
+                </figcaption>
+              </figure>
+            </label>
+          </div>
+          <% end %>
         </div>
-        <% @evaluation_criteriums.each do |evaluation_criterium| %>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="evaluation_criterium_ids[]" id="evaluation-criterium-<%= evaluation_criterium.id %>" value="<%= evaluation_criterium.id %>">
-          <label class="form-check-label" for="evaluation-criterium-<%= evaluation_criterium.id %>">
-            <figure class="text-end">
-              <blockquote class="blockquote">
-                <p><%= evaluation_criterium.description %></p>
-              </blockquote>
-              <figcaption class="blockquote-footer">
-                <%= evaluation_criterium.for %>
-              </figcaption>
-            </figure>
-          </label>
-        </div>
-        <% end %>
       </div>
     </div>
+    <%= form.hidden_field :form_fields, value: nil, id: "hidden-field" %>
+
+    <%= form.submit :submit_form_fields, value: "Save Form Fields", id: "submit-form-fields", class: "btn btn-primary" %>
   </div>
 
-  <%= form.hidden_field :form_fields, value: nil, id: "hidden-field" %>
+  <div class="mb-3 border px-2 col-4">
+
+    <div id="dynamic-fields-containers" >
+    </div>
+    <% if @evaluation_form.errors.has_key?(:form_fields) %>
+    <% @evaluation_form.errors[:form_fields].each do |message| %>
+    <div class="text-danger"><%= message %></div>
+    <% end %>
+    <% end %>
+  </div>
+</div>
 
 
-  <button id="add-radio-buttons" class="btn btn-secondary">Add Evaluation Field</button>
-  <%= form.submit :submit_form_fields, value: "Save Form Fields", id: "submit-form-fields", class: "btn btn-primary" %>
 </div>
 <% end %>
 
 <style>
   .evaluation-criterium-container {
-    height: 300px; /* Adjust the height as needed */
+    height: 400px; /* Adjust the height as needed */
     overflow-y: auto;
   }
+
+  #dynamic-fields-containers {
+    min-height: 0;
+    max-height: 900px; /* Adjust the max height as needed */
+    overflow-y: auto;
+  }
+
 </style>
 
 <script>
   var checkboxes = document.querySelectorAll('input[type="checkbox"]');
   var checkAllCriteriasCheckbox = document.getElementById('check-all-criterias');
   var submitFormFields = document.getElementById('submit-form-fields');
+  var containersContainer = document.getElementById('dynamic-fields-containers');
   var form = document.getElementById('data-form');
-
   var containers = []; // Array to store dynamic fields containers
 
   checkboxes.forEach(function(checkbox) {
@@ -63,7 +88,7 @@
       containers = []; // Reset containers array on each change
 
       checkboxes.forEach(function(checkbox) {
-        if (checkbox.checked) {
+        if (checkbox.checked && checkbox !== checkAllCriteriasCheckbox) { // Exclude the check-all checkbox
           var selectedId = checkbox.getAttribute('value');
           var selectedDescription = checkbox.labels[0].innerText;
 
@@ -73,6 +98,8 @@
           containers.push(container);
         }
       });
+
+      renderGeneratedForm(); // Render the generated form
     });
   });
 
@@ -80,6 +107,25 @@
     checkboxes.forEach(function(checkbox) {
       checkbox.checked = checkAllCriteriasCheckbox.checked;
     });
+
+    if (checkAllCriteriasCheckbox.checked) {
+      containers = []; // Reset containers array
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox !== checkAllCriteriasCheckbox) {
+          var selectedId = checkbox.getAttribute('value');
+          var selectedDescription = checkbox.labels[0].innerText;
+
+          var container = document.createElement('div');
+          container.classList.add('dynamic-fields-container');
+          container.innerHTML = generateFieldHTML(selectedId, selectedDescription);
+          containers.push(container);
+        }
+      });
+    } else {
+      containers = []; // Clear containers array when "Check All" is unchecked
+    }
+
+    renderGeneratedForm(); // Render the generated form
   });
 
   function generateFieldHTML(id, description) {
@@ -116,15 +162,13 @@
     return fieldHtml;
   }
 
-  var addButton = document.getElementById('add-radio-buttons');
-  var containersContainer = document.getElementById('dynamic-fields-containers');
+  function renderGeneratedForm() {
+    containersContainer.innerHTML = ''; // Clear existing containers
 
-  addButton.addEventListener('click', function(event) {
-    event.preventDefault();
     containers.forEach(function(container) {
       containersContainer.appendChild(container.cloneNode(true));
     });
-  });
+  }
 
   submitFormFields.addEventListener('click', function(event) {
     event.preventDefault();
@@ -132,8 +176,6 @@
     var hiddenField = document.getElementById('hidden-field');
     hiddenField.value = containersContainer.innerHTML;
 
-    setTimeout(function() {
-      form.submit();
-    }, 100);
+    document.getElementById('data-form').submit();
   });
 </script>

@@ -1,14 +1,15 @@
 <h1>EvaluationCriteriums#new</h1>
-<%= form_with(model: @evaluation_criterium, url: evaluation_criteriums_path) do |form| %>
+
+<%= form_with(model: @evaluation_criterium, url: evaluation_criteriums_path, id: "evaluation-criterium-form") do |form| %>
   <div class="mb-3">
     <%= form.label :description, class: "form-label" %><br/>
-    <%= form.text_area :description, class: "form-control" %><br/>
+    <%= form.text_area :description, class: "form-control", id: "criterium-description" %>
   </div>
 
   <div class="form-group mb-3">
-  <%= form.label :for, "for evaluators" ,class: "form-label" %><br/>
-  <%= form.select :for, [["Evaluator", nil],["Student","student"], ["Instructor","instructor"], ["Head of Department","hod"]], {}, class: "form-select form-control" %>
-</div>
-  
+    <%= form.label :for, "for evaluators", class: "form-label" %><br/>
+    <%= form.select :for, [["Select Evaluators", nil],["Student","student"], ["Instructor","instructor"], ["Head of Department","hod"]], {}, class: "form-select form-control", id: "evaluators-select" %>
+  </div>
+
   <%= form.submit class: "btn btn-primary" %>
 <% end %>

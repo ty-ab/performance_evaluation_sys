@@ -81,9 +81,9 @@ module EvaluationsHelper
     end
 
     def compute_percentage(student_mean,instructor_mean,hod_mean)
-        student_weight = 0.7
-        instructor_weight = 0.2
-        hod_weight = 0.1
+        student_weight = 0.5
+        instructor_weight = 0.15
+        hod_weight = 0.35
 
         # # Calculate the mean score for students
         # student_mean = compute_mean(student)

@@ -10,7 +10,7 @@
       <thead>
         <tr class="table-primary">
           <th></th>
-          <th>Course Name</th>
+          <th>College Name</th>
           <th></th>
         </tr>
       </thead>
@@ -22,13 +22,6 @@
             <td class="text-center">
               <%= link_to edit_college_path(college), class: "btn btn-warning mx-5" do %>
                 <i class="bi bi-pencil-square"></i><span>Edit</span>
-              <% end %>
-
-              <%= link_to college_path(college), method: :delete, class: "btn btn-danger mx-5", data: {
-                turbo_method: :delete,
-                turbo_confirm: "Are you sure?"
-              } do %>
-                <i class="bi bi-trash"></i><span>Delete</span>
               <% end %>
             </td>
           </tr>

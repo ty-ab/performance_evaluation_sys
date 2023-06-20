@@ -12,7 +12,7 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
-<body style="background-color: #f8f9fa !important;">
+<body>
   <%= render partial: 'shared/header' %>
 
   <div class="container-fluid">
@@ -36,10 +36,17 @@
     <%= notice %>
   </div>
   <% end %>
-  <div class="container">
+  <div class="container" id="center-view">
     
         <%= yield %>
   </div>
+<style type="text/css">
+    #center-view {
+    min-height: 0;
+    max-height: 900px; /* Adjust the max height as needed */
+    overflow-y: auto;
+  }
+</style>
       </div>
     </div>
   </div>

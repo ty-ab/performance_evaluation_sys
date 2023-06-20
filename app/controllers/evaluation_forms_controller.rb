@@ -9,14 +9,16 @@ class EvaluationFormsController < ApplicationController
   end
 
   def show
+    @evaluation_form = EvaluationForm.find(params[:id])
   end
 
   def create
     @evaluation_form = EvaluationForm.new(evaluation_form_params)
     if @evaluation_form.save
-      redirect_to evaluation_forms_path
+      redirect_to new_evaluation_form_path
     else
-      render 'new'
+      puts @evaluation_form.errors.full_messages
+      render 'new', status: :unprocessable_entity, template: 'evaluation_forms/new'
     end
   end
 

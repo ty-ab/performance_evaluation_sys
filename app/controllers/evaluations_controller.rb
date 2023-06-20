@@ -27,7 +27,12 @@ class EvaluationsController < ApplicationController
 
         # @evaluation_record.assign_attributes(evaluation_record_params)
         # @evaluation_record.detailed_record = detailed_record
+
+        @task = Task.find(params[:evaluation_record][:task_id])
         if @evaluation_record.save
+            if current_user.is_a?(Student)
+                @task.students.delete(current_user)
+            end
           redirect_to evaluation_path
       else
           render 'index'

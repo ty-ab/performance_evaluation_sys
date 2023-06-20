@@ -16,7 +16,7 @@ class InstructorsController < ApplicationController
     if @instructor.save
       redirect_to instructors_path
     else
-      render 'new' ,status: :unprocessable_entity
+      render 'new'
     end
   end
 
@@ -30,7 +30,7 @@ class InstructorsController < ApplicationController
     if @instructor.update(instructor_params1)
       redirect_to instructors_path
     else
-      render 'edit',status: :unprocessable_entity
+      render 'edit'
     end
   end
 
@@ -46,7 +46,7 @@ class InstructorsController < ApplicationController
     end
 
     def instructor_params1
-      params.require(:instructor).permit(:name,:email,:college_id)
+      params.require(:instructor).permit(:name,:college_id)
     end
 
     def require_login

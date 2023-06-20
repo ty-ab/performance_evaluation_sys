@@ -6,7 +6,4 @@ class Student < ApplicationRecord
   has_secure_password
   #self.inheritance_column = :_type_disabled
   #self.table_name = 'students'
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 6 }
 end

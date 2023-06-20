@@ -11,20 +11,20 @@
   <tbody>
     <% if @tasks.present? %>
       <% @tasks.each do |task| %>
-        <% if task.active && current_user.college == task.instructor.college && task.start_eval %>
+        <% if task.active && current_user.college == task.instructor.college && task.start_eval && !(task.instructor.id == current_user.id) %>
           <tr>
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
             <td><%= task.department.dep_name %></td>
-            <td><%= task.semester.sem %></td>
+            <td><%= task.semester %></td>
             <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary" %></td>
           </tr>
-        <% elsif task.active %>
+        <% elsif task.active && !(task.instructor.id == current_user.id) %>
           <tr>
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
             <td><%= task.department.dep_name %></td>
-            <td><%= task.semester.sem %></td>
+            <td><%= task.semester %></td>
             <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary disabled" %></td>
           </tr>
         <% end %>

@@ -15,22 +15,13 @@
                     <%= form.label :name, class: "form-label" %>
                     <%= form.text_field :name, class: "form-control form-control-lg" %>
                   </div>
-                  <% if @instructor.errors.has_key?(:name) %>
-                    <% @instructor.errors[:name].each do |message| %>
-                      <div class="text-danger"><%= message %></div>
-                    <% end %>
-                  <% end %>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <%= form.label :email, class: "form-label" %>
                     <%= form.email_field :email, class: "form-control form-control-lg" %>
                   </div>
-                  <% if @instructor.errors.has_key?(:email) %>
-                    <% @instructor.errors[:email].each do |message| %>
-                      <div class="text-danger"><%= message %></div>
-                    <% end %>
-                  <% end %>
+
                 </div>
               </div>
 
@@ -40,11 +31,6 @@
                     <%= form.label :password, class: "form-label" %>
                     <%= form.password_field :password, class: "form-control form-control-lg" %>
                   </div>
-                  <% if @instructor.errors.has_key?(:password) %>
-                    <% @instructor.errors[:password].each do |message| %>
-                      <div class="text-danger"><%= message %></div>
-                    <% end %>
-                  <% end %>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">

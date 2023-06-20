@@ -16,7 +16,7 @@
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
             <td><%= task.department.dep_name %></td>
-            <td><%= task.semester.sem %></td>
+            <td><%= task.semester %></td>
             <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary" %></td>
           </tr>
         <% elsif task.active %>
@@ -24,7 +24,7 @@
             <td><%= task.instructor.name %></td>
             <td><%= task.course.course_name %></td>
             <td><%= task.department.dep_name %></td>
-            <td><%= task.semester.sem %></td>
+            <td><%= task.semester %></td>
             <td><%= link_to "Evaluate", evaluate_task_path(task), class: "btn btn-primary disabled" %></td>
           </tr>
         <% end %>

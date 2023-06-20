@@ -15,7 +15,7 @@ class CoursesController < ApplicationController
     if @course.save
       redirect_to courses_path
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
     if @course.update(course_params)
       redirect_to courses_path
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

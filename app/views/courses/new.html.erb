@@ -1,11 +1,13 @@
 <h1>Courses#new</h1>
-<%= form_with(model: @course, url: courses_path, class: "needs-validation", novalidate: true) do |form| %>
+<%= form_with(model: @course, url: courses_path) do |form| %>
   <div class="mb-3">
     <%= form.label :course_name, class: "form-label" %>
     <%= form.text_field :course_name, class: "form-control", required: true %>
-    <div class="invalid-feedback">
-      Please provide a course name.
-    </div>
+    <% if @course.errors.has_key?(:course_name) %>
+      <% @course.errors[:course_name].each do |message| %>
+        <div class="text-danger"><%= message %></div>
+      <% end %>
+    <% end %>
   </div>
 
   <%= form.submit "Create Course", class: "btn btn-primary" %>

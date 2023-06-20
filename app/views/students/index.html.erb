@@ -18,10 +18,6 @@
         <td><%= student.semester.sem %></td>
         <td>
           <%= link_to "Edit", edit_student_path(student), class: "btn btn-primary me-2" %>
-          <%= link_to "Delete", student_path(student), method: :delete, class: "btn btn-danger", data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-          } %>
         </td>
       </tr>
     <% end %>

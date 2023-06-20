@@ -1,2 +1,5 @@
 <h1>EvaluationForms#show</h1>
 <p>Find me in app/views/evaluation_forms/show.html.erb</p>
+<div id="dynamic-fields-containers" class="mb-3 border px-2">
+	<%= @evaluation_form.form_fields.html_safe %>
+ </div>
